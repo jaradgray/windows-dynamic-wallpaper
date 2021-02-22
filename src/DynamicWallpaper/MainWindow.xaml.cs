@@ -20,14 +20,25 @@ namespace DynamicWallpaper
     /// </summary>
     public partial class MainWindow : Window
     {
+        private MainWindowViewModel _viewModel;
+
+
         public MainWindow()
         {
             InitializeComponent();
+
+            _viewModel = new MainWindowViewModel();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show($"Directory path: {directoryTextBox.Text}");
+            string text = directoryTextBox.Text;
+            if (text.Equals(""))
+            {
+                MessageBox.Show("Directory path can't be empty");
+                return;
+            }
+            _viewModel.DirPath = directoryTextBox.Text;
         }
     }
 }
