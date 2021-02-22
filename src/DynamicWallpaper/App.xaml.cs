@@ -11,6 +11,9 @@ namespace DynamicWallpaper
 {
     /// <summary>
     /// Interaction logic for App.xaml
+    /// 
+    /// This class's implementation enables the app to run in the background and
+    /// shows a NotifyIcon in the notification area
     /// </summary>
     public partial class App : Application
     {
@@ -26,7 +29,7 @@ namespace DynamicWallpaper
             _notifyIcon = new System.Windows.Forms.NotifyIcon();
             _notifyIcon.DoubleClick += (s, args) => ShowMainWindow();
             _notifyIcon.Icon = DynamicWallpaper.Properties.Resources.AppIcon;
-            _notifyIcon.Text = "Hello, Background App World!";
+            _notifyIcon.Text = "Dynamic Wallpaper";
             _notifyIcon.Visible = true;
 
             CreateContextMenu();
@@ -50,7 +53,7 @@ namespace DynamicWallpaper
         private void CreateContextMenu()
         {
             _notifyIcon.ContextMenuStrip = new System.Windows.Forms.ContextMenuStrip();
-            _notifyIcon.ContextMenuStrip.Items.Add("Show Main Window...").Click += (s, e) => ShowMainWindow();
+            _notifyIcon.ContextMenuStrip.Items.Add("Show Window").Click += (s, e) => ShowMainWindow();
             _notifyIcon.ContextMenuStrip.Items.Add("Exit").Click += (s, e) => ExitApplication();
         }
 
