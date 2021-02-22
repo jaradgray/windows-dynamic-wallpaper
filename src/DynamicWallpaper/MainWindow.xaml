@@ -5,8 +5,40 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DynamicWallpaper"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Select Dynamic Wallpaper" Height="450" Width="800"
+        Background="#161616"
+        Foreground="AntiqueWhite">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="8" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="8" />
+        </Grid.RowDefinitions>
         
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="8"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="8"/>
+        </Grid.ColumnDefinitions>
+
+
+        <TextBlock Grid.Row="1" Grid.Column="1"
+            Margin="0 0 0 8"
+            FontSize="16"
+            Text ="Path to wallpaper's directory:"/>
+        <TextBox x:Name="directoryTextBox" Grid.Row="2" Grid.Column="1"
+            MinWidth="300"
+            FontSize="16"
+            Background="#161616"
+            Foreground="AntiqueWhite"/>
+        <Button Grid.Row="3" Grid.Column="1"
+            Margin="0 8 0 0"
+            Padding="8"
+            HorizontalAlignment="Right"
+            FontSize="16"
+            Content="Apply"
+            Click="Button_Click"/>
     </Grid>
 </Window>

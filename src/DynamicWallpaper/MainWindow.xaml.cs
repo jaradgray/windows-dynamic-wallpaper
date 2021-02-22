@@ -24,5 +24,10 @@ namespace DynamicWallpaper
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show($"Directory path: {directoryTextBox.Text}");
+        }
     }
 }
