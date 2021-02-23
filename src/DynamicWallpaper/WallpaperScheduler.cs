@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
+using Microsoft.Win32;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -44,6 +45,20 @@ namespace DynamicWallpaperNamespace
             _timer = new Timer();
             _timer.AutoReset = false;
             _timer.Elapsed += Timer_Elapsed;
+
+            SystemEvents.TimeChanged += SystemEvents_TimeChanged;
+            Application.Current.Exit += Application_Exit;
+        }
+
+        private void SystemEvents_TimeChanged(object sender, EventArgs e)
+        {
+            Console.WriteLine("SystemEvents.TimeChanged event fired");
+        }
+
+        private void Application_Exit(object sender, ExitEventArgs e)
+        {
+            SystemEvents.TimeChanged -= SystemEvents_TimeChanged; // unsubscribe to static event
+            Console.WriteLine("Unsubscribed from SystemEvents.TimeChanged");
         }
 
 
