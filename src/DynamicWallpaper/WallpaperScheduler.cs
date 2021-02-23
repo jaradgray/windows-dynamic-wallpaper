@@ -46,22 +46,28 @@ namespace DynamicWallpaperNamespace
             _timer.AutoReset = false;
             _timer.Elapsed += Timer_Elapsed;
 
-            SystemEvents.TimeChanged += SystemEvents_TimeChanged;
+            Application.Current.Startup += Application_Startup;
             Application.Current.Exit += Application_Exit;
+            SystemEvents.TimeChanged += SystemEvents_TimeChanged;
         }
 
 
         // Event handlers
 
-        private void SystemEvents_TimeChanged(object sender, EventArgs e)
+        private void Application_Startup(object sender, StartupEventArgs e)
         {
-            SyncToSunProgress();
+            Console.WriteLine("Application.Startup event fired");
         }
 
         private void Application_Exit(object sender, ExitEventArgs e)
         {
             SystemEvents.TimeChanged -= SystemEvents_TimeChanged; // unsubscribe to static event
             Console.WriteLine("Unsubscribed from SystemEvents.TimeChanged");
+        }
+
+        private void SystemEvents_TimeChanged(object sender, EventArgs e)
+        {
+            SyncToSunProgress();
         }
 
 
