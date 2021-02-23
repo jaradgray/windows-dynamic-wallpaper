@@ -50,9 +50,12 @@ namespace DynamicWallpaperNamespace
             Application.Current.Exit += Application_Exit;
         }
 
+
+        // Event handlers
+
         private void SystemEvents_TimeChanged(object sender, EventArgs e)
         {
-            Console.WriteLine("SystemEvents.TimeChanged event fired");
+            SyncToSunProgress();
         }
 
         private void Application_Exit(object sender, ExitEventArgs e)
@@ -95,20 +98,8 @@ namespace DynamicWallpaperNamespace
                 return;
             }
 
-            // Get path to image that should be set as current wallpaper
-            //  This is the image whose progress is closest to sun's current progress without exceeding it
-            DateTime now = DateTime.Now;
-            double currentProgress = SunCalcHelper.GetSunProgress(now);
-            for (int i = 0; i < _wallpaper.Images.Count; i++)
-            {
-                double progress = _wallpaper.Images[i].Progress;
-                if (progress > currentProgress) break;
-                Index = i;
-            }
-
-            // Change wallpaper immediately via _timer
-            _timer.Interval = 1;
-            _timer.Enabled = true;
+            // Set wallpaper based on sun's current progress
+            SyncToSunProgress();
         }
 
         public void Timer_Elapsed(Object source, ElapsedEventArgs e)
@@ -132,6 +123,31 @@ namespace DynamicWallpaperNamespace
                 interval = 1; // fire timer immediately if it should have fired in the past
             }
             _timer.Interval = interval;
+        }
+
+        /// <summary>
+        /// Sets Index to that of the image whose progress is closest to sun's current
+        /// progress without exceeding it, and changes wallpaper to that image
+        /// </summary>
+        private void SyncToSunProgress()
+        {
+            if (_wallpaper == null) return;
+
+            _timer.Enabled = false;
+
+            // Set Index to that of the image whose progress is closest to sun's current progress without exceeding it
+            DateTime now = DateTime.Now;
+            double currentProgress = SunCalcHelper.GetSunProgress(now);
+            for (int i = 0; i < _wallpaper.Images.Count; i++)
+            {
+                double progress = _wallpaper.Images[i].Progress;
+                if (progress > currentProgress) break;
+                Index = i;
+            }
+
+            // Change wallpaper immediately via _timer
+            _timer.Interval = 1;
+            _timer.Enabled = true;
         }
     }
 }
