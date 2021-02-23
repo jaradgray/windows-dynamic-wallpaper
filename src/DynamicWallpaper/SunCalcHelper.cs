@@ -4,7 +4,7 @@ using System.Linq;
 using SunCalcNet;
 using SunCalcNet.Model;
 
-namespace DynamicWallpaper
+namespace DynamicWallpaperNamespace
 {
     /// <summary>
     /// This class provides functionality that requires interacting with SunCalcNet library.

@@ -43,12 +43,12 @@ namespace DynamicWallpaperNamespace
             foreach (JObject obj in arr.Children<JObject>())
             {
                 string name = (string)obj["name"];
-                double progress = (double)obj["progress"];
+                double? progress = (double?)obj["progress"]; // double? is a nullable double type, same as Nullable<Double>
                 if (name == null || progress == null)
                 {
-                    throw new JsonException("Missing property in images array");
+                    throw new JsonException("Missing property in json data for images array");
                 }
-                Images.Add(new ProgressImage(name, progress));
+                Images.Add(new ProgressImage(name, (double)progress));
             }
         }
     }

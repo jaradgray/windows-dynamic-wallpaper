@@ -30,7 +30,7 @@ namespace DynamicWallpaperNamespace
             }
         }
 
-        public int Index { get; private set; } // index of the currently displayed ProgressImage in _wallpaper.Images
+        public int Index { get; private set; } // index of the image to be set as the wallpaper the next time _timer's Elapsed event fires
 
 
         // Private variables
@@ -81,8 +81,9 @@ namespace DynamicWallpaperNamespace
             }
 
             // Get path to image that should be set as current wallpaper
-            // TODO get sun's current progress
-            double currentProgress = -1;
+            //  This is the image whose progress is closest to sun's current progress without exceeding it
+            DateTime now = DateTime.Now;
+            double currentProgress = SunCalcHelper.GetSunProgress(now);
             for (int i = 0; i < _wallpaper.Images.Count; i++)
             {
                 double progress = _wallpaper.Images[i].Progress;
@@ -90,7 +91,7 @@ namespace DynamicWallpaperNamespace
                 Index = i;
             }
 
-            // change wallpaper
+            // Change wallpaper immediately via _timer
             _timer.Interval = 1;
             _timer.Enabled = true;
         }
@@ -107,9 +108,15 @@ namespace DynamicWallpaperNamespace
 
             // TODO persist current wallpaper's path
 
-            Console.WriteLine($"Elapsed event fired at {e.SignalTime}\nIndex: {Index}");
-            // TODO schedule _timer to run when the sun reaches the next image's progress
-            //_timer.Interval = 1000;
+            // Schedule _timer to run when the sun reaches the next image's progress
+            Index = (Index + 1) % _wallpaper.Images.Count; // set Index to next image's index
+            DateTime changeTime = SunCalcHelper.GetNextTime(_wallpaper.Images[Index].Progress, DateTime.Now);
+            double interval = (changeTime.Ticks - DateTime.Now.Ticks) / TimeSpan.TicksPerMillisecond;
+            if (interval < 1)
+            {
+                interval = 1; // fire timer immediately if it should have fired in the past
+            }
+            _timer.Interval = interval;
         }
     }
 }
