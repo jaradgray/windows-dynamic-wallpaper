@@ -14,12 +14,15 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
+            <RowDefinition Height="*" /> <!-- blank fill -->
             <RowDefinition Height="8" />
+            <RowDefinition Height="auto" /> <!-- status bar -->
         </Grid.RowDefinitions>
         
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="8"/>
             <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/> <!-- blank fill -->
             <ColumnDefinition Width="8"/>
         </Grid.ColumnDefinitions>
 
@@ -40,5 +43,20 @@
             FontSize="16"
             Content="Apply"
             Click="Button_Click"/>
+        
+        <!-- Status Bar -->
+        <Grid x:Name="statusBar" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="4" Background="#007acc">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock x:Name="statusTextBlock" Grid.Row="0" Grid.Column="0"
+                Padding="2"
+                Text="Hello"/>
+        </Grid>
     </Grid>
 </Window>

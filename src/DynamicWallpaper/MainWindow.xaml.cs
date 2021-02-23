@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace DynamicWallpaperNamespace
 {
@@ -28,6 +29,16 @@ namespace DynamicWallpaperNamespace
             InitializeComponent();
 
             _viewModel = new MainWindowViewModel();
+
+            // Handle PropertyChanged events from the ViewModel
+            _viewModel.PropertyChanged += (s, e) =>
+            {
+                if (e.PropertyName.Equals("IsSchedulerRunning"))
+                {
+                    // UI will be updated, must be on main thread
+                    this.Dispatcher.Invoke(() => IsSchedulerRunning_Change(_viewModel.IsSchedulerRunning));
+                }
+            };
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -39,6 +50,24 @@ namespace DynamicWallpaperNamespace
                 return;
             }
             _viewModel.DirPath = directoryTextBox.Text;
+        }
+
+        private void IsSchedulerRunning_Change(bool? isRunning)
+        {
+            if (isRunning == null)
+            {
+                statusBar.Background = (Brush)new BrushConverter().ConvertFrom("#FF007acc");
+            }
+            else if ((bool)isRunning)
+            {
+                statusBar.Background = Brushes.Green;
+                statusTextBlock.Text = "Running";
+            }
+            else
+            {
+                statusBar.Background = Brushes.Red;
+                statusTextBlock.Text = "Not Running";
+            }
         }
     }
 }
