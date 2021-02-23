@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
@@ -16,8 +18,17 @@ namespace DynamicWallpaperNamespace
     /// This class provides the functionality that makes the wallpaper "dynamic".
     /// Keeps track of the current wallpaper image, schedules image changes
     /// </summary>
-    class WallpaperScheduler
+    class WallpaperScheduler : INotifyPropertyChanged
     {
+        // Implement notifying PropertyChanged functionality
+        public event PropertyChangedEventHandler PropertyChanged; // required by INotifyPropertyChanged interface
+        // The method we'll call when we want to raise the PropertyChanged event
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+
         // Properties and their backing fields
         private string _dirPath;
 
@@ -32,6 +43,23 @@ namespace DynamicWallpaperNamespace
         }
 
         public int Index { get; private set; } // index of the image to be set as the wallpaper the next time _timer's Elapsed event fires
+
+        private bool? _isRunning = null;
+        public bool? IsRunning
+        {
+            get
+            {
+                return _isRunning;
+            }
+            private set
+            {
+                if (value != _isRunning)
+                {
+                    _isRunning = value;
+                    OnPropertyChanged(); // raise PropertyChanged event
+                }
+            }
+        }
 
 
         // Private variables
@@ -88,6 +116,7 @@ namespace DynamicWallpaperNamespace
                 string message = $"WallpaperScheduler.DirPath_Change - {e.ToString()}";
                 Console.Error.Write(message);
                 MessageBox.Show(message);
+                IsRunning = false;
                 return;
             }
 
@@ -101,6 +130,7 @@ namespace DynamicWallpaperNamespace
                 string message = $"WallpaperScheduler.DirPath_Change - {e.ToString()}";
                 Console.Error.Write(message);
                 MessageBox.Show(message);
+                IsRunning = false;
                 return;
             }
 
@@ -129,6 +159,7 @@ namespace DynamicWallpaperNamespace
                 interval = 1; // fire timer immediately if it should have fired in the past
             }
             _timer.Interval = interval;
+            IsRunning = true;
         }
 
         /// <summary>
@@ -137,7 +168,11 @@ namespace DynamicWallpaperNamespace
         /// </summary>
         private void SyncToSunProgress()
         {
-            if (_wallpaper == null) return;
+            if (_wallpaper == null)
+            {
+                IsRunning = false;
+                return;
+            }
 
             _timer.Enabled = false;
 

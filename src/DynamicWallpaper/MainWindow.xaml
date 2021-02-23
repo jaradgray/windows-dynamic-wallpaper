@@ -45,7 +45,7 @@
             Click="Button_Click"/>
         
         <!-- Status Bar -->
-        <Grid Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="4" Background="#007acc">
+        <Grid x:Name="statusBar" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="4" Background="#007acc">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
