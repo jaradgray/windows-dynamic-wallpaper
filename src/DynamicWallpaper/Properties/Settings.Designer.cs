@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DynamicWallpaper.Properties
+namespace DynamicWallpaperNamespace.Properties
 {
 
 

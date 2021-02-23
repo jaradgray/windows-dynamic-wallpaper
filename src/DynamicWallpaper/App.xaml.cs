@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace DynamicWallpaper
+namespace DynamicWallpaperNamespace
 {
     /// <summary>
     /// Interaction logic for App.xaml
@@ -28,7 +28,7 @@ namespace DynamicWallpaper
 
             _notifyIcon = new System.Windows.Forms.NotifyIcon();
             _notifyIcon.DoubleClick += (s, args) => ShowMainWindow();
-            _notifyIcon.Icon = DynamicWallpaper.Properties.Resources.AppIcon;
+            _notifyIcon.Icon = DynamicWallpaperNamespace.Properties.Resources.AppIcon;
             _notifyIcon.Text = "Dynamic Wallpaper";
             _notifyIcon.Visible = true;
 

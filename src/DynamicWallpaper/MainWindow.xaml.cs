@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace DynamicWallpaper
+namespace DynamicWallpaperNamespace
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
