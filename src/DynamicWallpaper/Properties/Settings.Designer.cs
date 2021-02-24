@@ -22,5 +22,17 @@ namespace DynamicWallpaperNamespace.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastSetWallpaperPath {
+            get {
+                return ((string)(this["LastSetWallpaperPath"]));
+            }
+            set {
+                this["LastSetWallpaperPath"] = value;
+            }
+        }
     }
 }
