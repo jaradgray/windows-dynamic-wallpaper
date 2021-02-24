@@ -72,6 +72,7 @@ namespace DynamicWallpaperNamespace
             {
                 statusBar.Background = Brushes.Green;
                 statusTextBlock.Text = "Running";
+                wallpaperChangeTimeTextBlock.Visibility = Visibility.Visible;
                 ((App)Application.Current).SetNotifyIconText("Dynamic Wallpaper\nRunning");
             }
             else
