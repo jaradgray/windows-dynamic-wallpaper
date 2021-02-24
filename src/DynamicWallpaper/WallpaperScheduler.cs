@@ -145,7 +145,7 @@ namespace DynamicWallpaperNamespace
             {
                 string message = $"WallpaperScheduler.DirPath_Change - {e.ToString()}";
                 Console.Error.Write(message);
-                MessageBox.Show(message);
+                //MessageBox.Show(message);
                 IsRunning = false;
                 return;
             }
@@ -159,7 +159,7 @@ namespace DynamicWallpaperNamespace
             {
                 string message = $"WallpaperScheduler.DirPath_Change - {e.ToString()}";
                 Console.Error.Write(message);
-                MessageBox.Show(message);
+                //MessageBox.Show(message);
                 IsRunning = false;
                 return;
             }
