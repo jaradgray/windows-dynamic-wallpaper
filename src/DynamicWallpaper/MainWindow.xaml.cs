@@ -102,9 +102,25 @@ namespace DynamicWallpaperNamespace
             wallpaperNameTextBlock.Visibility = Visibility.Visible;
         }
 
+        private void WallpaperNameTextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            ((TextBlock)sender).Background = (Brush)new BrushConverter().ConvertFrom("#44FFFFFF");
+        }
+
         private void WallpaperNameTextBlock_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
+            ((TextBlock)sender).Background = (Brush)new BrushConverter().ConvertFrom("#22FFFFFF");
             _viewModel.WallpaperNameTextBlock_Click();
+        }
+
+        private void WallpaperNameTextBlock_MouseEnter(object sender, MouseEventArgs e)
+        {
+            ((TextBlock)sender).Background = (Brush)new BrushConverter().ConvertFrom("#22FFFFFF");
+        }
+
+        private void WallpaperNameTextBlock_MouseLeave(object sender, MouseEventArgs e)
+        {
+            ((TextBlock)sender).Background = (Brush)new BrushConverter().ConvertFrom("#00FFFFFF");
         }
     }
 }
