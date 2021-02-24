@@ -34,6 +34,7 @@
         <TextBox x:Name="directoryTextBox" Grid.Row="2" Grid.Column="1"
             MinWidth="300"
             FontSize="16"
+            Padding="9"
             Background="#161616"
             Foreground="AntiqueWhite"/>
         <Button Grid.Row="3" Grid.Column="1"
