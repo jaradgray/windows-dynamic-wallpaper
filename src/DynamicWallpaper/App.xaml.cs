@@ -22,11 +22,6 @@ namespace DynamicWallpaperNamespace
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            MainWindow = new MainWindow();
-            MainWindow.Closing += MainWindow_Closing;
-
-            base.OnStartup(e); // call this here so WallpaperScheduler (which is created only after MainWindow is constructed) can detect Startup event
-
             _notifyIcon = new System.Windows.Forms.NotifyIcon();
             _notifyIcon.DoubleClick += (s, args) => ShowMainWindow();
             _notifyIcon.Icon = DynamicWallpaperNamespace.Properties.Resources.AppIcon;
@@ -34,6 +29,11 @@ namespace DynamicWallpaperNamespace
             _notifyIcon.Visible = true;
 
             CreateContextMenu();
+
+            MainWindow = new MainWindow();
+            MainWindow.Closing += MainWindow_Closing;
+
+            base.OnStartup(e); // call this here so WallpaperScheduler (which is created only after MainWindow is constructed) can detect Startup event
         }
 
 
