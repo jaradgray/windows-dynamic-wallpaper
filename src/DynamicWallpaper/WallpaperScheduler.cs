@@ -61,6 +61,23 @@ namespace DynamicWallpaperNamespace
             }
         }
 
+        private DateTime _nextChangeTime = DateTime.Now; // time the wallpaper is scheduled to change next
+        public DateTime NextChangeTime
+        {
+            get
+            {
+                return _nextChangeTime;
+            }
+            private set
+            {
+                if (value.Ticks != _nextChangeTime.Ticks)
+                {
+                    _nextChangeTime = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
 
         // Private variables
         private DynamicWallpaper _wallpaper;
@@ -160,6 +177,7 @@ namespace DynamicWallpaperNamespace
             }
             _timer.Interval = interval;
             IsRunning = true;
+            NextChangeTime = changeTime;
         }
 
         /// <summary>

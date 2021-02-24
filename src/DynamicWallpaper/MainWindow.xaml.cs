@@ -33,13 +33,21 @@ namespace DynamicWallpaperNamespace
             // Handle PropertyChanged events from the ViewModel
             _viewModel.PropertyChanged += (s, e) =>
             {
-                if (e.PropertyName.Equals("IsSchedulerRunning"))
+                switch (e.PropertyName)
                 {
-                    // UI will be updated, must be on main thread
-                    this.Dispatcher.Invoke(() => IsSchedulerRunning_Change(_viewModel.IsSchedulerRunning));
+                    case "IsSchedulerRunning":
+                        // UI will be updated, must be on main thread
+                        this.Dispatcher.Invoke(() => IsSchedulerRunning_Change(_viewModel.IsSchedulerRunning));
+                        break;
+                    case "WallpaperChangeTime":
+                        this.Dispatcher.Invoke(() => WallpaperChangeTime_Change(_viewModel.WallpaperChangeTime));
+                        break;
                 }
             };
         }
+
+
+        // Private methods
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -57,6 +65,7 @@ namespace DynamicWallpaperNamespace
             if (isRunning == null)
             {
                 statusBar.Background = (Brush)new BrushConverter().ConvertFrom("#FF007acc");
+                wallpaperChangeTimeTextBlock.Visibility = Visibility.Collapsed;
             }
             else if ((bool)isRunning)
             {
@@ -67,7 +76,14 @@ namespace DynamicWallpaperNamespace
             {
                 statusBar.Background = Brushes.Red;
                 statusTextBlock.Text = "Not Running";
+                wallpaperChangeTimeTextBlock.Visibility = Visibility.Collapsed;
             }
+        }
+
+        private void WallpaperChangeTime_Change(DateTime time)
+        {
+            wallpaperChangeTimeTextBlock.Text = $"Next wallpaper change: {time.ToString()}";
+            wallpaperChangeTimeTextBlock.Visibility = Visibility.Visible;
         }
     }
 }

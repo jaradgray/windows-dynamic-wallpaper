@@ -49,6 +49,23 @@ namespace DynamicWallpaperNamespace
             }
         }
 
+        private DateTime _wallpaperChangeTime;
+        public DateTime WallpaperChangeTime
+        {
+            get
+            {
+                return _wallpaperChangeTime;
+            }
+            private set
+            {
+                if (value.Ticks != _wallpaperChangeTime.Ticks)
+                {
+                    _wallpaperChangeTime = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
 
         // Private variables
 
@@ -66,6 +83,9 @@ namespace DynamicWallpaperNamespace
                 {
                     case "IsRunning":
                         IsSchedulerRunning = _scheduler.IsRunning;
+                        break;
+                    case "NextChangeTime":
+                        WallpaperChangeTime = _scheduler.NextChangeTime;
                         break;
                 }
             };

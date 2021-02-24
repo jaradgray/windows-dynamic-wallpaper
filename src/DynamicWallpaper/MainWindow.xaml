@@ -47,16 +47,27 @@
         <!-- Status Bar -->
         <Grid x:Name="statusBar" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="4" Background="#007acc">
             <Grid.RowDefinitions>
+                <RowDefinition Height="2" />
                 <RowDefinition Height="auto" />
+                <RowDefinition Height="2" />
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2"/>
                 <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="2"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock x:Name="statusTextBlock" Grid.Row="0" Grid.Column="0"
-                Padding="2"
+            <TextBlock x:Name="statusTextBlock" Grid.Row="1" Grid.Column="1"
+                Margin="8 0 0 0"
                 Text="Hello"/>
+            <TextBlock x:Name="wallpaperChangeTimeTextBlock"
+                Grid.Row="1"
+                Grid.Column="2"
+                Margin="16 0 0 0"
+                Text="wallpaperChangeTimeTextBlock"
+                Visibility="Collapsed"/>
         </Grid>
     </Grid>
 </Window>
