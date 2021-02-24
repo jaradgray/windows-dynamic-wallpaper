@@ -68,9 +68,14 @@
                 Grid.Row="1"
                 Grid.Column="2"
                 Margin="16 0 0 0"
+                Padding="8 0 8 0"
                 Text="wallpaperNameTextBlock"
                 Cursor="Hand"
-                Visibility="Collapsed" MouseLeftButtonUp="WallpaperNameTextBlock_MouseLeftButtonUp" MouseEnter="WallpaperNameTextBlock_MouseEnter" MouseLeave="WallpaperNameTextBlock_MouseLeave" MouseLeftButtonDown="WallpaperNameTextBlock_MouseLeftButtonDown"/>
+                MouseEnter="WallpaperNameTextBlock_MouseEnter"
+                MouseLeave="WallpaperNameTextBlock_MouseLeave"
+                MouseLeftButtonDown="WallpaperNameTextBlock_MouseLeftButtonDown"
+                MouseLeftButtonUp="WallpaperNameTextBlock_MouseLeftButtonUp"
+                Visibility="Collapsed"/>
             <TextBlock x:Name="wallpaperChangeTimeTextBlock"
                 Grid.Row="1"
                 Grid.Column="3"
