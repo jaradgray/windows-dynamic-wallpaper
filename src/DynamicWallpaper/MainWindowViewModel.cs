@@ -115,6 +115,18 @@ namespace DynamicWallpaperNamespace
 
         // Public methods
 
+        public void BrowseButton_Click()
+        {
+            // Show an OpenFileDialog (because .NET doesn't have a dialog to select a directory)
+            var ofd = new Microsoft.Win32.OpenFileDialog();
+            ofd.InitialDirectory = _scheduler.DirPath;
+            if (ofd.ShowDialog() == true)
+            {
+                // Set DirPath to path of selected file's directory
+                DirPath = System.IO.Path.GetDirectoryName(ofd.FileName);
+            }
+        }
+
         public void WallpaperNameTextBlock_Click()
         {
             // Open Windows Explorer and show current wallpaper's directory

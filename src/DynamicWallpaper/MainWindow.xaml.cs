@@ -63,6 +63,11 @@ namespace DynamicWallpaperNamespace
             _viewModel.DirPath = directoryTextBox.Text;
         }
 
+        private void BrowseButton_Click(object sender, RoutedEventArgs e)
+        {
+            _viewModel.BrowseButton_Click();
+        }
+
         private void IsSchedulerRunning_Change(bool? isRunning)
         {
             if (isRunning == null)

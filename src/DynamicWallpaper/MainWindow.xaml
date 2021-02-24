@@ -22,6 +22,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="8"/>
             <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/> <!-- blank fill -->
             <ColumnDefinition Width="8"/>
         </Grid.ColumnDefinitions>
@@ -34,9 +35,14 @@
         <TextBox x:Name="directoryTextBox" Grid.Row="2" Grid.Column="1"
             MinWidth="300"
             FontSize="16"
-            Padding="9"
+            Padding="8"
             Background="#161616"
             Foreground="AntiqueWhite"/>
+        <Button x:Name="browseButton" Grid.Row="2" Grid.Column="2"
+            Margin="8 0 0 0"
+            Padding="8"
+            FontSize="16"
+            Content="Browse..." Click="BrowseButton_Click"/>
         <Button Grid.Row="3" Grid.Column="1"
             Margin="0 8 0 0"
             Padding="8"
