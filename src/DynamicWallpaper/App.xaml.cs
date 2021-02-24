@@ -49,6 +49,14 @@ namespace DynamicWallpaperNamespace
         }
 
 
+        // Public Methods
+
+        public void SetNotifyIconText(string text)
+        {
+            _notifyIcon.Text = text;
+        }
+
+
         // Private Methods
 
         private void CreateContextMenu()

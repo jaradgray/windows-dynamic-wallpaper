@@ -66,17 +66,20 @@ namespace DynamicWallpaperNamespace
             {
                 statusBar.Background = (Brush)new BrushConverter().ConvertFrom("#FF007acc");
                 wallpaperChangeTimeTextBlock.Visibility = Visibility.Collapsed;
+                ((App)Application.Current).SetNotifyIconText("Dynamic Wallpaper");
             }
             else if ((bool)isRunning)
             {
                 statusBar.Background = Brushes.Green;
                 statusTextBlock.Text = "Running";
+                ((App)Application.Current).SetNotifyIconText("Dynamic Wallpaper\nRunning");
             }
             else
             {
                 statusBar.Background = Brushes.Red;
                 statusTextBlock.Text = "Not Running";
                 wallpaperChangeTimeTextBlock.Visibility = Visibility.Collapsed;
+                ((App)Application.Current).SetNotifyIconText("Dynamic Wallpaper\nNot running");
             }
         }
 

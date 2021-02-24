@@ -201,13 +201,13 @@ namespace DynamicWallpaperNamespace
         /// </summary>
         private void SyncToSunProgress()
         {
+            _timer.Enabled = false;
+
             if (_wallpaper == null)
             {
                 IsRunning = false;
                 return;
             }
-
-            _timer.Enabled = false;
 
             // Set Index to that of the image whose progress is closest to sun's current progress without exceeding it
             DateTime now = DateTime.Now;
