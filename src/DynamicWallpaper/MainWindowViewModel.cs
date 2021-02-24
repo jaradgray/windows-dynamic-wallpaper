@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -109,6 +110,15 @@ namespace DynamicWallpaperNamespace
                         break;
                 }
             };
+        }
+
+
+        // Public methods
+
+        public void WallpaperNameTextBlock_Click()
+        {
+            // Open Windows Explorer and show current wallpaper's directory
+            Process.Start(_scheduler.DirPath);
         }
     }
 }

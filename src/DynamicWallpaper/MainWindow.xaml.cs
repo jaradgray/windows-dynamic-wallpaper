@@ -101,5 +101,10 @@ namespace DynamicWallpaperNamespace
             wallpaperNameTextBlock.Text = $"Current wallpaper: {name}";
             wallpaperNameTextBlock.Visibility = Visibility.Visible;
         }
+
+        private void WallpaperNameTextBlock_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            _viewModel.WallpaperNameTextBlock_Click();
+        }
     }
 }
