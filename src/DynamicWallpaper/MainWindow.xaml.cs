@@ -87,7 +87,7 @@ namespace DynamicWallpaperNamespace
             }
             else
             {
-                statusBar.Background = Brushes.Red;
+                statusBar.Background = Brushes.Firebrick;
                 statusTextBlock.Text = "Not Running";
                 wallpaperChangeTimeTextBlock.Visibility = Visibility.Collapsed;
                 wallpaperNameTextBlock.Visibility = Visibility.Collapsed;
