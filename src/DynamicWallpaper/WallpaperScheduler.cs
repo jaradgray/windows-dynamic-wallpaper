@@ -78,6 +78,23 @@ namespace DynamicWallpaperNamespace
             }
         }
 
+        private string _wallpaperName = "";
+        public string WallpaperName
+        {
+            get
+            {
+                return _wallpaperName;
+            }
+            private set
+            {
+                if (!value.Equals(_wallpaperName))
+                {
+                    _wallpaperName = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
 
         // Private variables
         private DynamicWallpaper _wallpaper;
@@ -163,6 +180,8 @@ namespace DynamicWallpaperNamespace
                 IsRunning = false;
                 return;
             }
+
+            WallpaperName = _wallpaper.Name;
 
             // Set wallpaper based on sun's current progress
             SyncToSunProgress();

@@ -66,6 +66,23 @@ namespace DynamicWallpaperNamespace
             }
         }
 
+        private string _currentWallpaperName = "";
+        public string CurrentWallpaperName
+        {
+            get
+            {
+                return _currentWallpaperName;
+            }
+            private set
+            {
+                if (!value.Equals(_currentWallpaperName))
+                {
+                    _currentWallpaperName = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
 
         // Private variables
 
@@ -86,6 +103,9 @@ namespace DynamicWallpaperNamespace
                         break;
                     case "NextChangeTime":
                         WallpaperChangeTime = _scheduler.NextChangeTime;
+                        break;
+                    case "WallpaperName":
+                        CurrentWallpaperName = _scheduler.WallpaperName;
                         break;
                 }
             };

@@ -42,6 +42,9 @@ namespace DynamicWallpaperNamespace
                     case "WallpaperChangeTime":
                         this.Dispatcher.Invoke(() => WallpaperChangeTime_Change(_viewModel.WallpaperChangeTime));
                         break;
+                    case "CurrentWallpaperName":
+                        this.Dispatcher.Invoke(() => CurrentWallpaperName_Change(_viewModel.CurrentWallpaperName));
+                        break;
                 }
             };
         }
@@ -66,6 +69,7 @@ namespace DynamicWallpaperNamespace
             {
                 statusBar.Background = (Brush)new BrushConverter().ConvertFrom("#FF007acc");
                 wallpaperChangeTimeTextBlock.Visibility = Visibility.Collapsed;
+                wallpaperNameTextBlock.Visibility = Visibility.Collapsed;
                 ((App)Application.Current).SetNotifyIconText("Dynamic Wallpaper");
             }
             else if ((bool)isRunning)
@@ -73,6 +77,7 @@ namespace DynamicWallpaperNamespace
                 statusBar.Background = Brushes.Green;
                 statusTextBlock.Text = "Running";
                 wallpaperChangeTimeTextBlock.Visibility = Visibility.Visible;
+                wallpaperNameTextBlock.Visibility = Visibility.Visible;
                 ((App)Application.Current).SetNotifyIconText("Dynamic Wallpaper\nRunning");
             }
             else
@@ -80,6 +85,7 @@ namespace DynamicWallpaperNamespace
                 statusBar.Background = Brushes.Red;
                 statusTextBlock.Text = "Not Running";
                 wallpaperChangeTimeTextBlock.Visibility = Visibility.Collapsed;
+                wallpaperNameTextBlock.Visibility = Visibility.Collapsed;
                 ((App)Application.Current).SetNotifyIconText("Dynamic Wallpaper\nNot running");
             }
         }
@@ -88,6 +94,12 @@ namespace DynamicWallpaperNamespace
         {
             wallpaperChangeTimeTextBlock.Text = $"Next wallpaper change: {time.ToString()}";
             wallpaperChangeTimeTextBlock.Visibility = Visibility.Visible;
+        }
+
+        private void CurrentWallpaperName_Change(string name)
+        {
+            wallpaperNameTextBlock.Text = $"Current wallpaper: {name}";
+            wallpaperNameTextBlock.Visibility = Visibility.Visible;
         }
     }
 }
