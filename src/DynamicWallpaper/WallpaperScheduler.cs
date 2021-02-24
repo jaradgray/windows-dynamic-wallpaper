@@ -103,13 +103,18 @@ namespace DynamicWallpaperNamespace
         {
             Console.WriteLine("Application.Startup event fired");
 
-            // if current wallpaper's path doesn't match that of last persisted image, return
+            // If current wallpaper's path doesn't match that of last persisted image...
+            string current = DesktopManager.GetDesktopWallpaperPath();
+            string persisted = Properties.Settings.Default.LastSetWallpaperPath;
+            if (!current.Equals(persisted))
+            {
+                // Indicate we're not scheduling wallpaper changes and return
+                IsRunning = false;
+                return;
+            }
 
-            // instantiate DynamicWallpaper object from the last persisted image's directory's manifest.json file
-
-            // set wallpaper based on sun's current position
-
-            // schedule wallpaper to change at next image's progress
+            // Set DirPath to persisted wallpaper's directory
+            DirPath = Path.GetDirectoryName(persisted);
         }
 
         private void Application_Exit(object sender, ExitEventArgs e)
