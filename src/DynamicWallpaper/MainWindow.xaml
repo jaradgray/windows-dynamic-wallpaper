@@ -95,6 +95,7 @@
             <RowDefinition Height="8" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
             <RowDefinition Height="*" /> <!-- blank fill -->
             <RowDefinition Height="8" />
             <RowDefinition Height="auto" /> <!-- status bar -->
@@ -108,12 +109,16 @@
         </Grid.ColumnDefinitions>
 
 
-        <TextBlock Grid.Row="1" Grid.Column="1"
+        <Image Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
+            Source="Resources/AppIcon_256.png"
+            Width="256"
+            Height="256"/>
+        <TextBlock Grid.Row="2" Grid.Column="1"
             Margin="0 0 0 8"
             FontSize="16"
             Foreground="#99FFFFFF"
             Text ="Set a dynamic wallpaper by selecting a file from its directory:"/>
-        <Button x:Name="selectWallpaperButton" Grid.Row="2" Grid.Column="1"
+        <Button x:Name="selectWallpaperButton" Grid.Row="3" Grid.Column="1"
             Style="{StaticResource BaseButtonStyle}"
             HorizontalAlignment="Left"
             Padding="8"
@@ -121,7 +126,7 @@
             Content="Select Wallpaper" Click="SelectWallpaperButton_Click"/>
         
         <!-- Status Bar -->
-        <Grid x:Name="statusBar" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="4" Background="#007acc">
+        <Grid x:Name="statusBar" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="4" Background="#007acc">
             <Grid.RowDefinitions>
                 <RowDefinition Height="2" />
                 <RowDefinition Height="auto" />
