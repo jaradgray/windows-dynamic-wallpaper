@@ -52,20 +52,9 @@ namespace DynamicWallpaperNamespace
 
         // Private methods
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void SelectWallpaperButton_Click(object sender, RoutedEventArgs e)
         {
-            string text = directoryTextBox.Text;
-            if (text.Equals(""))
-            {
-                MessageBox.Show("Directory path can't be empty");
-                return;
-            }
-            _viewModel.DirPath = directoryTextBox.Text;
-        }
-
-        private void BrowseButton_Click(object sender, RoutedEventArgs e)
-        {
-            _viewModel.BrowseButton_Click();
+            _viewModel.SelectWallpaperButton_Click();
         }
 
         private void IsSchedulerRunning_Change(bool? isRunning)

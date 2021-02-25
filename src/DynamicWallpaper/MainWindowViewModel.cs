@@ -115,7 +115,7 @@ namespace DynamicWallpaperNamespace
 
         // Public methods
 
-        public void BrowseButton_Click()
+        public void SelectWallpaperButton_Click()
         {
             // Show an OpenFileDialog (because .NET doesn't have a dialog to select a directory)
             var ofd = new Microsoft.Win32.OpenFileDialog();
