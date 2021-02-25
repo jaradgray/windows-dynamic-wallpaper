@@ -8,6 +8,87 @@
         Title="Select Dynamic Wallpaper" Height="450" Width="800"
         Background="#121212"
         Foreground="#99FFFFFF">
+    
+    <!-- Define resources in the Window's scope -->
+    <Window.Resources>
+        <!--
+            Can't just edit the default style. Have to re-define the entire style.
+            Copied default button style from C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\DesignTools\SystemThemes\Wpf\aero2.normalcolor.xaml
+            Then we can make our edits
+        -->
+        
+        <!-- Default Button Style (edited) -->
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#222222" />
+        <SolidColorBrush x:Key="Button.Static.Foreground" Color="#DEFFFFFF" />
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070" />
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#333333" />
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1" />
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#333333" />
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B" />
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#222222" />
+        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5" />
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#61FFFFFF" />
+
+        <Style x:Key="BaseButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}" />
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}" />
+            <Setter Property="Foreground" Value="{StaticResource Button.Static.Foreground}" />
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter"
+                            RecognizesAccessKey="True"
+                            Margin="{TemplateBinding Padding}"
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Focusable="False">
+                            </ContentPresenter>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Button.IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" TargetName="border" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" Value="{StaticResource Button.MouseOver.Background}" TargetName="border" />
+                                <Setter Property="BorderBrush" Value="{StaticResource Button.MouseOver.Border}" TargetName="border" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" Value="{StaticResource Button.Pressed.Background}" TargetName="border" />
+                                <Setter Property="BorderBrush" Value="{StaticResource Button.Pressed.Border}" TargetName="border" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" Value="{StaticResource Button.Disabled.Background}" TargetName="border" />
+                                <Setter Property="BorderBrush" Value="{StaticResource Button.Disabled.Border}" TargetName="border" />
+                                <Setter Property="TextElement.Foreground" Value="{StaticResource Button.Disabled.Foreground}" TargetName="contentPresenter" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="8" />
@@ -31,6 +112,7 @@
             FontSize="16"
             Text ="Set a dynamic wallpaper by selecting a file from its directory:"/>
         <Button x:Name="selectWallpaperButton" Grid.Row="2" Grid.Column="1"
+            Style="{StaticResource BaseButtonStyle}"
             HorizontalAlignment="Left"
             Padding="8"
             FontSize="16"
