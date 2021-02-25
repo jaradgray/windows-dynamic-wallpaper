@@ -15,9 +15,10 @@
             Can't just edit the default style. Have to re-define the entire style.
             Copied default button style from C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\DesignTools\SystemThemes\Wpf\aero2.normalcolor.xaml
             Then we can make our edits
+        
+            Stuff for Default Button Style (edited)
         -->
         
-        <!-- Default Button Style (edited) -->
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
                 <Setter.Value>
@@ -137,12 +138,14 @@
 
             <TextBlock x:Name="statusTextBlock" Grid.Row="1" Grid.Column="1"
                 Margin="8 0 0 0"
+                FontSize="16"
                 Text="Hello"/>
             <TextBlock x:Name="wallpaperNameTextBlock"
                 Grid.Row="1"
                 Grid.Column="2"
                 Margin="16 0 0 0"
                 Padding="8 0 8 0"
+                FontSize="16"
                 Text="wallpaperNameTextBlock"
                 Cursor="Hand"
                 MouseEnter="WallpaperNameTextBlock_MouseEnter"
@@ -154,6 +157,7 @@
                 Grid.Row="1"
                 Grid.Column="3"
                 Margin="16 0 0 0"
+                FontSize="16"
                 Text="wallpaperChangeTimeTextBlock"
                 Visibility="Collapsed"/>
         </Grid>
