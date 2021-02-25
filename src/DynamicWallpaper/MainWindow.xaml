@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:DynamicWallpaperNamespace"
         mc:Ignorable="d"
         Title="Select Dynamic Wallpaper" Height="450" Width="800"
-        Background="#161616"
-        Foreground="AntiqueWhite">
+        Background="#121212"
+        Foreground="#99FFFFFF">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="8" />
@@ -31,6 +31,7 @@
             FontSize="16"
             Text ="Set a dynamic wallpaper by selecting a file from its directory:"/>
         <Button x:Name="selectWallpaperButton" Grid.Row="2" Grid.Column="1"
+            HorizontalAlignment="Left"
             Padding="8"
             FontSize="16"
             Content="Select Wallpaper" Click="SelectWallpaperButton_Click"/>
