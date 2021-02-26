@@ -165,7 +165,10 @@ namespace DynamicWallpaperNamespace
 
         private void SystemEvents_TimeChanged(object sender, EventArgs e)
         {
-            SyncToSunProgress();
+            if (IsRunning == true)
+            {
+                SyncToSunProgress();
+            }
         }
 
 
@@ -248,7 +251,8 @@ namespace DynamicWallpaperNamespace
         {
             _timer.Enabled = false;
 
-            // TODO do we need this check?
+            // TODO probably don't need this check, since we're checking for IsRunning == true before calling this
+            //  from everywhere except DirPath_Change() (which only calls this if _wallpaper was created successfully)
             if (_wallpaper == null)
             {
                 Stop();
