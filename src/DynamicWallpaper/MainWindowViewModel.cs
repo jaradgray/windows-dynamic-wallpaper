@@ -84,6 +84,24 @@ namespace DynamicWallpaperNamespace
             }
         }
 
+        private Location _location;
+        public Location Location
+        {
+            get
+            {
+                return _location;
+            }
+            set
+            {
+                if (value.Equals(_location))
+                {
+                    _location = value;
+                    _scheduler.Location = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
 
         // Private variables
 
@@ -92,7 +110,10 @@ namespace DynamicWallpaperNamespace
         // Constructor
         public MainWindowViewModel()
         {
-            _scheduler = new WallpaperScheduler();
+            // Create WallpaperScheduler from persisted location settings
+            double lat = Properties.Settings.Default.Latitude;
+            double lng = Properties.Settings.Default.Longitude;
+            _scheduler = new WallpaperScheduler(lat, lng);
 
             // Handle PropertyChanged events from _scheduler
             _scheduler.PropertyChanged += (s, e) =>
@@ -107,6 +128,9 @@ namespace DynamicWallpaperNamespace
                         break;
                     case "WallpaperName":
                         CurrentWallpaperName = _scheduler.WallpaperName;
+                        break;
+                    case "Location":
+                        Location = _scheduler.Location;
                         break;
                 }
             };
