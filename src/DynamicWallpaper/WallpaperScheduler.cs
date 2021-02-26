@@ -113,6 +113,10 @@ namespace DynamicWallpaperNamespace
 
             _location = new Location(lat, lng);
 
+            // Subscribe to events
+            Application.Current.Exit += Application_Exit;
+            SystemEvents.TimeChanged += SystemEvents_TimeChanged;
+
             // If current wallpaper's path doesn't match that of last persisted image...
             string current = DesktopManager.GetDesktopWallpaperPath();
             string persisted = Properties.Settings.Default.LastSetWallpaperPath;
@@ -125,10 +129,6 @@ namespace DynamicWallpaperNamespace
 
             // Set DirPath to persisted wallpaper's directory
             DirPath = Path.GetDirectoryName(persisted);
-
-            // Subscribe to events
-            Application.Current.Exit += Application_Exit;
-            SystemEvents.TimeChanged += SystemEvents_TimeChanged;
         }
 
 
@@ -217,6 +217,8 @@ namespace DynamicWallpaperNamespace
         /// <summary>
         /// Sets Index to that of the image whose progress is closest to sun's current
         /// progress without exceeding it, and changes wallpaper to that image
+        /// 
+        /// Note: calling this method will "start" the scheduler if it isn't running
         /// </summary>
         private void SyncToSunProgress()
         {
