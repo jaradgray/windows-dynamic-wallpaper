@@ -95,6 +95,40 @@ namespace DynamicWallpaperNamespace
             }
         }
 
+        private double _latitude;
+        public double Latitude
+        {
+            get
+            {
+                return _latitude;
+            }
+            set
+            {
+                if (value != _latitude)
+                {
+                    _latitude = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private double _longitude;
+        public double Longitude
+        {
+            get
+            {
+                return _longitude;
+            }
+            set
+            {
+                if (value != _longitude)
+                {
+                    _longitude = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
 
         // Private variables
         private DynamicWallpaper _wallpaper;
@@ -203,7 +237,7 @@ namespace DynamicWallpaperNamespace
 
             // Schedule _timer to run when the sun reaches the next image's progress
             Index = (Index + 1) % _wallpaper.Images.Count; // set Index to next image's index
-            DateTime changeTime = SunCalcHelper.GetNextTime(_wallpaper.Images[Index].Progress, DateTime.Now);
+            DateTime changeTime = SunCalcHelper.GetNextTime(_wallpaper.Images[Index].Progress, DateTime.Now, Latitude, Longitude);
             double interval = (changeTime.Ticks - DateTime.Now.Ticks) / TimeSpan.TicksPerMillisecond;
             if (interval < 1)
             {
@@ -230,7 +264,7 @@ namespace DynamicWallpaperNamespace
 
             // Set Index to that of the image whose progress is closest to sun's current progress without exceeding it
             DateTime now = DateTime.Now;
-            double currentProgress = SunCalcHelper.GetSunProgress(now);
+            double currentProgress = SunCalcHelper.GetSunProgress(now, Latitude, Longitude);
             for (int i = 0; i < _wallpaper.Images.Count; i++)
             {
                 double progress = _wallpaper.Images[i].Progress;
