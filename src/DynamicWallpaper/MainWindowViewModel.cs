@@ -96,7 +96,7 @@ namespace DynamicWallpaperNamespace
                 if (!value.Equals(_location))
                 {
                     _location = value;
-                    _scheduler = new WallpaperScheduler(value.Latitude, value.Longitude);
+                    _scheduler.Location = value;
                     OnPropertyChanged();
                 }
             }
@@ -113,9 +113,9 @@ namespace DynamicWallpaperNamespace
             // Create WallpaperScheduler from persisted location settings
             double lat = Properties.Settings.Default.Latitude;
             double lng = Properties.Settings.Default.Longitude;
+            _scheduler = new WallpaperScheduler(lat, lng);
+            // Set Location property (AFTER we create _scheduler)
             Location = new Location(lat, lng);
-
-            // Note: we would instantiate _scheduler from lat and lng here, but we do that when Location property is set
 
             // Handle PropertyChanged events from _scheduler
             _scheduler.PropertyChanged += (s, e) =>
@@ -133,6 +133,11 @@ namespace DynamicWallpaperNamespace
                         break;
                 }
             };
+
+            // Initialize state to _scheduler (because we subscribe to its events AFTER we construct it)
+            IsSchedulerRunning = _scheduler.IsRunning;
+            WallpaperChangeTime = _scheduler.NextChangeTime;
+            CurrentWallpaperName = _scheduler.WallpaperName;
         }
 
 

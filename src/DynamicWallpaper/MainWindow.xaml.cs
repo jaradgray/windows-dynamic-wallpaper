@@ -94,13 +94,13 @@ namespace DynamicWallpaperNamespace
         private void WallpaperChangeTime_Change(DateTime time)
         {
             wallpaperChangeTimeTextBlock.Text = $"Next wallpaper change: {time.ToString()}";
-            wallpaperChangeTimeTextBlock.Visibility = Visibility.Visible;
+            wallpaperChangeTimeTextBlock.Visibility = time.Equals(DateTime.MinValue) ? Visibility.Collapsed : Visibility.Visible;
         }
 
         private void CurrentWallpaperName_Change(string name)
         {
             wallpaperNameTextBlock.Text = $"Current wallpaper: {name}";
-            wallpaperNameTextBlock.Visibility = Visibility.Visible;
+            wallpaperNameTextBlock.Visibility = "".Equals(name) ? Visibility.Collapsed : Visibility.Visible;
         }
 
         private void Location_Change(Location location)
