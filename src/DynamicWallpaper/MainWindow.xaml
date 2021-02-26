@@ -13,6 +13,9 @@
     
     <!-- Define resources in the Window's scope -->
     <Window.Resources>
+
+        <SolidColorBrush x:Key="Static.Foreground.HighEmphasis" Color="#DEFFFFFF" />
+
         <!--
             Can't just edit the default style. Have to re-define the entire style.
             Copied default button style from C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\DesignTools\SystemThemes\Wpf\aero2.normalcolor.xaml
@@ -153,6 +156,7 @@
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="2"/>
             </Grid.ColumnDefinitions>
 
@@ -180,6 +184,12 @@
                 FontSize="16"
                 Text="wallpaperChangeTimeTextBlock"
                 Visibility="Collapsed"/>
+            <Path Grid.Row="1" Grid.Column="4"
+                Margin="8 0 8 0"
+                Stretch="Uniform"
+                HorizontalAlignment="Right"
+                Fill="{StaticResource Static.Foreground.HighEmphasis}"
+                Data="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
         </Grid>
     </Grid>
 </Window>
