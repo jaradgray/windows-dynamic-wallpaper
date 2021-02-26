@@ -66,11 +66,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ChangeLocationWindow.xaml.cs">
+      <DependentUpon>ChangeLocationWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DynamicWallpaper.cs" />
     <Compile Include="Location.cs" />
     <Compile Include="ProgressImage.cs" />
     <Compile Include="SunCalcHelper.cs" />
     <Compile Include="WallpaperScheduler.cs" />
+    <Page Include="ButtonDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ChangeLocationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

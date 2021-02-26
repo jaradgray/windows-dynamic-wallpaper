@@ -1,0 +1,112 @@
+﻿<Window x:Class="DynamicWallpaperNamespace.ChangeLocationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DynamicWallpaperNamespace"
+        mc:Ignorable="d"
+        Title="Change Location Window"
+        SizeToContent="WidthAndHeight"
+        Background="#121212"
+        Foreground="#99FFFFFF">
+    <Window.Resources>
+        <!--
+            Note: to use resources from a different file, we have to
+            include them in the Window's resources using a MergedDictionary.
+            Using Window.Resources normally, the framework implicitly creates
+            a ResourceDictionary, but when using a MergedDictionary we
+            have to create it explicitly.
+        -->
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ButtonDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- Normal local window resources go here -->
+            <SolidColorBrush x:Key="Foreground.HighEmphasis" Color="#DEFFFFFF" />
+            <SolidColorBrush x:Key="Foreground.MediumEmphasis" Color="#99FFFFFF" />
+            
+            <Style TargetType="TextBlock">
+                <Setter Property="Padding" Value="8" />
+                <Setter Property="FontSize" Value="16" />
+            </Style>
+
+            <Style TargetType="TextBox">
+                <Setter Property="MinWidth" Value="200" />
+                <Setter Property="Padding" Value="8" />
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="Background" Value="#222222" />
+                <Setter Property="Foreground" Value="{StaticResource Foreground.HighEmphasis}" />
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="8" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="8" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="8" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="8" />
+        </Grid.RowDefinitions>
+        
+        <!-- Latitude row -->
+        <TextBlock
+            Grid.Row="1"
+            Grid.Column="1"
+            Text="Latitude:"/>
+        <TextBox
+            x:Name="latitudeTextBox"
+            Grid.Row="1"
+            Grid.Column="2"
+            Margin="8 0 8 8"/>
+        <TextBlock
+            Grid.Row="1"
+            Grid.Column="3"
+            Text="&#x00B0;N" />
+
+        <!-- Longitude row -->
+        <TextBlock
+            Grid.Row="2"
+            Grid.Column="1"
+            Text="Latitude:"/>
+        <TextBox
+            x:Name="longitudeTextBox"
+            Grid.Row="2"
+            Grid.Column="2"
+            Margin="8 0 8 0"/>
+        <TextBlock
+            Grid.Row="2"
+            Grid.Column="3"
+            Text="&#x00B0;E" />
+        
+        <!-- Buttons -->
+        <StackPanel Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3"
+            Margin="0 16 0 0"
+            Orientation="Horizontal"
+            HorizontalAlignment="Right">
+            <Button
+                x:Name="okButton"
+                Style="{StaticResource BaseButtonStyle}"
+                MinWidth="100"
+                Margin="0 0 8 0"
+                FontSize="16"
+                Content="OK" Click="OkButton_Click" />
+            <Button
+                x:Name="cancelButton"
+                Style="{StaticResource BaseButtonStyle}"
+                MinWidth="100"
+                FontSize="16"
+                Content="Cancel" Click="CancelButton_Click" />
+        </StackPanel>
+        
+    </Grid>
+</Window>

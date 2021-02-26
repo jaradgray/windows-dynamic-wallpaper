@@ -158,8 +158,21 @@ namespace DynamicWallpaperNamespace
 
         public void Location_Click()
         {
-            // Show window to set location
-            Console.WriteLine("Location_Click()!");
+            // Show window to change location
+            ChangeLocationWindow w = new ChangeLocationWindow(Location.Latitude, Location.Longitude);
+            w.ShowDialog();
+
+            // If user clicked Ok button (and input was validated)...
+            if (w.OkClicked)
+            {
+                // Persist location values in settings
+                Properties.Settings.Default.Latitude = w.Latitude;
+                Properties.Settings.Default.Longitude = w.Longitude;
+                Properties.Settings.Default.Save();
+
+                // Set Location property (which re-creates _scheduler)
+                Location = new Location(w.Latitude, w.Longitude);
+            }
         }
     }
 }
