@@ -106,23 +106,12 @@ namespace DynamicWallpaperNamespace
         // Constructor
         public WallpaperScheduler(double lat, double lng)
         {
+            // Instantiate properties and instance variables
             _timer = new Timer();
             _timer.AutoReset = false;
             _timer.Elapsed += Timer_Elapsed;
 
             _location = new Location(lat, lng);
-
-            Application.Current.Startup += Application_Startup;
-            Application.Current.Exit += Application_Exit;
-            SystemEvents.TimeChanged += SystemEvents_TimeChanged;
-        }
-
-
-        // Event handlers
-
-        private void Application_Startup(object sender, StartupEventArgs e)
-        {
-            Console.WriteLine("Application.Startup event fired");
 
             // If current wallpaper's path doesn't match that of last persisted image...
             string current = DesktopManager.GetDesktopWallpaperPath();
@@ -136,7 +125,14 @@ namespace DynamicWallpaperNamespace
 
             // Set DirPath to persisted wallpaper's directory
             DirPath = Path.GetDirectoryName(persisted);
+
+            // Subscribe to events
+            Application.Current.Exit += Application_Exit;
+            SystemEvents.TimeChanged += SystemEvents_TimeChanged;
         }
+
+
+        // Event handlers
 
         private void Application_Exit(object sender, ExitEventArgs e)
         {
