@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Change Location"
         SizeToContent="WidthAndHeight"
-        Background="#121212"
+        Background="#1d1d1d"
         Foreground="#99FFFFFF"
         WindowStartupLocation="CenterOwner"
         ResizeMode="NoResize">
