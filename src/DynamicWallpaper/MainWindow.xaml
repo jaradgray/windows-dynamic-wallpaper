@@ -184,12 +184,24 @@
                 FontSize="16"
                 Text="wallpaperChangeTimeTextBlock"
                 Visibility="Collapsed"/>
-            <Path Grid.Row="1" Grid.Column="4"
-                Margin="8 0 8 0"
-                Stretch="Uniform"
+            <StackPanel
+                Grid.Row="1"
+                Grid.Column="4"
+                Orientation="Horizontal"
                 HorizontalAlignment="Right"
-                Fill="{StaticResource Static.Foreground.HighEmphasis}"
-                Data="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+                Cursor="Hand">
+                <Path 
+                    Margin="8 0 8 0"
+                    Stretch="Uniform"
+                    HorizontalAlignment="Left"
+                    Fill="{StaticResource Static.Foreground.HighEmphasis}"
+                    Data="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+                <TextBlock
+                    x:Name="locationTextBlock"
+                    HorizontalAlignment="Center"
+                    FontSize="16"
+                    Text="Hi there"/>
+            </StackPanel>
         </Grid>
     </Grid>
 </Window>
