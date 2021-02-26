@@ -109,6 +109,9 @@ namespace DynamicWallpaperNamespace
             locationTextBlock.Text = $"{location.Latitude}\u00B0N, {location.Longitude}\u00B0E";
         }
 
+
+        // Wallpaper Name mouse interaction
+
         private void WallpaperNameTextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             ((TextBlock)sender).Background = (Brush)new BrushConverter().ConvertFrom("#44FFFFFF");
@@ -128,6 +131,30 @@ namespace DynamicWallpaperNamespace
         private void WallpaperNameTextBlock_MouseLeave(object sender, MouseEventArgs e)
         {
             ((TextBlock)sender).Background = (Brush)new BrushConverter().ConvertFrom("#00FFFFFF");
+        }
+
+
+        // Location Border mouse interaction
+
+        private void LocationBorder_MouseEnter(object sender, MouseEventArgs e)
+        {
+            ((Border)sender).Background = (Brush)new BrushConverter().ConvertFrom("#22FFFFFF");
+        }
+
+        private void LocationBorder_MouseLeave(object sender, MouseEventArgs e)
+        {
+            ((Border)sender).Background = (Brush)new BrushConverter().ConvertFrom("#00FFFFFF");
+        }
+
+        private void LocationBorder_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            ((Border)sender).Background = (Brush)new BrushConverter().ConvertFrom("#44FFFFFF");
+        }
+
+        private void LocationBorder_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            ((Border)sender).Background = (Brush)new BrushConverter().ConvertFrom("#22FFFFFF");
+            _viewModel.Location_Click();
         }
 
         private void InitToViewModel()

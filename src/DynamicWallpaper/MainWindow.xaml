@@ -6,8 +6,7 @@
         xmlns:local="clr-namespace:DynamicWallpaperNamespace"
         mc:Ignorable="d"
         Title="Dynamic Wallpaper"
-        Width="800"
-        SizeToContent="Height"
+        SizeToContent="WidthAndHeight"
         Background="#121212"
         Foreground="#DEFFFFFF">
     
@@ -184,24 +183,35 @@
                 FontSize="16"
                 Text="wallpaperChangeTimeTextBlock"
                 Visibility="Collapsed"/>
-            <StackPanel
+            
+            <!-- Surround with Border because Panels don't have Padding property -->
+            <Border
+                x:Name="locationBorder"
                 Grid.Row="1"
                 Grid.Column="4"
-                Orientation="Horizontal"
+                Margin="16 0 0 0"
+                Padding="8 0 8 0"
                 HorizontalAlignment="Right"
-                Cursor="Hand">
-                <Path 
-                    Margin="8 0 8 0"
-                    Stretch="Uniform"
-                    HorizontalAlignment="Left"
-                    Fill="{StaticResource Static.Foreground.HighEmphasis}"
-                    Data="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
-                <TextBlock
-                    x:Name="locationTextBlock"
-                    HorizontalAlignment="Center"
-                    FontSize="16"
-                    Text="Hi there"/>
-            </StackPanel>
+                Cursor="Hand"
+                MouseEnter="LocationBorder_MouseEnter"
+                MouseLeave="LocationBorder_MouseLeave"
+                MouseLeftButtonDown="LocationBorder_MouseLeftButtonDown"
+                MouseLeftButtonUp="LocationBorder_MouseLeftButtonUp">
+                <StackPanel
+                    Orientation="Horizontal">
+                    <Path
+                        Stretch="Uniform"
+                        HorizontalAlignment="Left"
+                        Fill="{StaticResource Static.Foreground.HighEmphasis}"
+                        Data="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+                    <TextBlock
+                        x:Name="locationTextBlock"
+                        Margin="8 0 0 0"
+                        HorizontalAlignment="Center"
+                        FontSize="16"
+                        Text="Hi there"/>
+                </StackPanel>
+            </Border>
         </Grid>
     </Grid>
 </Window>
