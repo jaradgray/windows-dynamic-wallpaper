@@ -45,8 +45,15 @@ namespace DynamicWallpaperNamespace
                     case "CurrentWallpaperName":
                         this.Dispatcher.Invoke(() => CurrentWallpaperName_Change(_viewModel.CurrentWallpaperName));
                         break;
+                    case "Location":
+                        this.Dispatcher.Invoke(() => Location_Change(_viewModel.Location));
+                        break;
                 }
             };
+
+            // We subscribe to ViewModel's PropertyChanged event after it's created, so we're not notified of
+            // properties set during construction, so we initialize views based on ViewModel here
+            InitToViewModel();
         }
 
 
@@ -96,6 +103,12 @@ namespace DynamicWallpaperNamespace
             wallpaperNameTextBlock.Visibility = Visibility.Visible;
         }
 
+        private void Location_Change(Location location)
+        {
+            // Update locationTextBlock to show location
+            locationTextBlock.Text = $"{location.Latitude}\u00B0N, {location.Longitude}\u00B0E";
+        }
+
         private void WallpaperNameTextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             ((TextBlock)sender).Background = (Brush)new BrushConverter().ConvertFrom("#44FFFFFF");
@@ -115,6 +128,15 @@ namespace DynamicWallpaperNamespace
         private void WallpaperNameTextBlock_MouseLeave(object sender, MouseEventArgs e)
         {
             ((TextBlock)sender).Background = (Brush)new BrushConverter().ConvertFrom("#00FFFFFF");
+        }
+
+        private void InitToViewModel()
+        {
+            // We can just call the "handler" for every property that can change
+            IsSchedulerRunning_Change(_viewModel.IsSchedulerRunning);
+            WallpaperChangeTime_Change(_viewModel.WallpaperChangeTime);
+            CurrentWallpaperName_Change(_viewModel.CurrentWallpaperName);
+            Location_Change(_viewModel.Location);
         }
     }
 }

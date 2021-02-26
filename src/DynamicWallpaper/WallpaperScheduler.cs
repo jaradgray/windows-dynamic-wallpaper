@@ -95,23 +95,7 @@ namespace DynamicWallpaperNamespace
             }
         }
 
-        private Location _location;
-        public Location Location
-        {
-            get
-            {
-                return _location;
-            }
-            set
-            {
-                if (value.Equals(_location))
-                {
-                    _location = value;
-                    SyncToSunProgress();
-                    OnPropertyChanged();
-                }
-            }
-        }
+        private Location _location = new Location(100, 100);
 
 
         // Private variables
@@ -223,7 +207,7 @@ namespace DynamicWallpaperNamespace
 
             // Schedule _timer to run when the sun reaches the next image's progress
             Index = (Index + 1) % _wallpaper.Images.Count; // set Index to next image's index
-            DateTime changeTime = SunCalcHelper.GetNextTime(_wallpaper.Images[Index].Progress, DateTime.Now, Location.Latitude, Location.Longitude);
+            DateTime changeTime = SunCalcHelper.GetNextTime(_wallpaper.Images[Index].Progress, DateTime.Now, _location.Latitude, _location.Longitude);
             double interval = (changeTime.Ticks - DateTime.Now.Ticks) / TimeSpan.TicksPerMillisecond;
             if (interval < 1)
             {
@@ -250,7 +234,7 @@ namespace DynamicWallpaperNamespace
 
             // Set Index to that of the image whose progress is closest to sun's current progress without exceeding it
             DateTime now = DateTime.Now;
-            double currentProgress = SunCalcHelper.GetSunProgress(now, Location.Latitude, Location.Longitude);
+            double currentProgress = SunCalcHelper.GetSunProgress(now, _location.Latitude, _location.Longitude);
             for (int i = 0; i < _wallpaper.Images.Count; i++)
             {
                 double progress = _wallpaper.Images[i].Progress;
