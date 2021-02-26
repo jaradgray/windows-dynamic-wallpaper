@@ -8,7 +8,9 @@
         Title="Change Location"
         SizeToContent="WidthAndHeight"
         Background="#121212"
-        Foreground="#99FFFFFF">
+        Foreground="#99FFFFFF"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize">
     <Window.Resources>
         <!--
             Note: to use resources from a different file, we have to

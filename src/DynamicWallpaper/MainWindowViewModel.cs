@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace DynamicWallpaperNamespace
 {
@@ -165,6 +166,7 @@ namespace DynamicWallpaperNamespace
         {
             // Show window to change location
             ChangeLocationWindow w = new ChangeLocationWindow(Location.Latitude, Location.Longitude);
+            w.Owner = Application.Current.MainWindow;
             w.ShowDialog();
 
             // If user clicked Ok button (and input was validated)...
