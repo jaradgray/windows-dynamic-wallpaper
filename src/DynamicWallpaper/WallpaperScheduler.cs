@@ -107,6 +107,7 @@ namespace DynamicWallpaperNamespace
                 if (value.Equals(_location))
                 {
                     _location = value;
+                    SyncToSunProgress();
                     OnPropertyChanged();
                 }
             }
