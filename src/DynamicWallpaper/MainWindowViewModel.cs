@@ -172,12 +172,22 @@ namespace DynamicWallpaperNamespace
             // If user clicked Ok button (and input was validated)...
             if (w.OkClicked)
             {
+                // Verify user input won't crash app by checking if given location has all SunPhase entries
+                var phases = SunCalcHelper.GetSunPhases(DateTime.Now, w.Latitude, w.Longitude);
+                const int EXPECTED_NUM_SUNPHASES = 14;
+                if (phases.Count() != EXPECTED_NUM_SUNPHASES)
+                {
+                    // User input an invalid location. Notify user
+                    MessageBox.Show($"There's a problem with\n{w.Latitude}\u00B0N, {w.Longitude}\u00B0E");
+                    return;
+                }
+
+                // No problem with user input
                 // Persist location values in settings
                 Properties.Settings.Default.Latitude = w.Latitude;
                 Properties.Settings.Default.Longitude = w.Longitude;
                 Properties.Settings.Default.Save();
-
-                // Set Location property (which re-creates _scheduler)
+                // Set Location property (which updates _scheduler)
                 Location = new Location(w.Latitude, w.Longitude);
             }
         }
