@@ -45,8 +45,15 @@ namespace DynamicWallpaperNamespace
                     case "CurrentWallpaperName":
                         this.Dispatcher.Invoke(() => CurrentWallpaperName_Change(_viewModel.CurrentWallpaperName));
                         break;
+                    case "Location":
+                        this.Dispatcher.Invoke(() => Location_Change(_viewModel.Location));
+                        break;
                 }
             };
+
+            // We subscribe to ViewModel's PropertyChanged event after it's created, so we're not notified of
+            // properties set during construction, so we initialize views based on ViewModel here
+            InitToViewModel();
         }
 
 
@@ -87,14 +94,23 @@ namespace DynamicWallpaperNamespace
         private void WallpaperChangeTime_Change(DateTime time)
         {
             wallpaperChangeTimeTextBlock.Text = $"Next wallpaper change: {time.ToString()}";
-            wallpaperChangeTimeTextBlock.Visibility = Visibility.Visible;
+            wallpaperChangeTimeTextBlock.Visibility = time.Equals(DateTime.MinValue) ? Visibility.Collapsed : Visibility.Visible;
         }
 
         private void CurrentWallpaperName_Change(string name)
         {
             wallpaperNameTextBlock.Text = $"Current wallpaper: {name}";
-            wallpaperNameTextBlock.Visibility = Visibility.Visible;
+            wallpaperNameTextBlock.Visibility = "".Equals(name) ? Visibility.Collapsed : Visibility.Visible;
         }
+
+        private void Location_Change(Location location)
+        {
+            // Update locationTextBlock to show location
+            locationTextBlock.Text = $"{location.Latitude}\u00B0N, {location.Longitude}\u00B0E";
+        }
+
+
+        // Wallpaper Name mouse interaction
 
         private void WallpaperNameTextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -115,6 +131,39 @@ namespace DynamicWallpaperNamespace
         private void WallpaperNameTextBlock_MouseLeave(object sender, MouseEventArgs e)
         {
             ((TextBlock)sender).Background = (Brush)new BrushConverter().ConvertFrom("#00FFFFFF");
+        }
+
+
+        // Location Border mouse interaction
+
+        private void LocationBorder_MouseEnter(object sender, MouseEventArgs e)
+        {
+            ((Border)sender).Background = (Brush)new BrushConverter().ConvertFrom("#22FFFFFF");
+        }
+
+        private void LocationBorder_MouseLeave(object sender, MouseEventArgs e)
+        {
+            ((Border)sender).Background = (Brush)new BrushConverter().ConvertFrom("#00FFFFFF");
+        }
+
+        private void LocationBorder_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            ((Border)sender).Background = (Brush)new BrushConverter().ConvertFrom("#44FFFFFF");
+        }
+
+        private void LocationBorder_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            ((Border)sender).Background = (Brush)new BrushConverter().ConvertFrom("#22FFFFFF");
+            _viewModel.Location_Click();
+        }
+
+        private void InitToViewModel()
+        {
+            // We can just call the "handler" for every property that can change
+            IsSchedulerRunning_Change(_viewModel.IsSchedulerRunning);
+            WallpaperChangeTime_Change(_viewModel.WallpaperChangeTime);
+            CurrentWallpaperName_Change(_viewModel.CurrentWallpaperName);
+            Location_Change(_viewModel.Location);
         }
     }
 }

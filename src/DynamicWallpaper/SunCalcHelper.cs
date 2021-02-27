@@ -15,8 +15,8 @@ namespace DynamicWallpaperNamespace
     public class SunCalcHelper
     {
         // TODO eventually pass lat and lng values to methods instead of hard-coding them here
-        public const double LAT = 34.316830;
-        public const double LNG = -86.495820;
+        //public const double LAT = 34.316830;
+        //public const double LNG = -86.495820;
         public const int PRECISION = 4; // number of decimal places to round to
 
 
@@ -53,15 +53,18 @@ namespace DynamicWallpaperNamespace
         }
 
         /// <summary>
-        /// Returns the sun's progress through the given day as a value in range [0, 360), where 0 is sunrise,
-        /// 90 is near solar noon, 180 is sunset, and 270 is near nadir.
+        /// Returns the sun's progress through the given day (relative to the given location)
+        /// as a value in range [0, 360), where 0 is sunrise, 90 is near solar noon, 180 is sunset,
+        /// and 270 is near nadir.
         /// </summary>
         /// <param name="date">the date representing the sun's position we want to calculate, in Local time</param>
+        /// <param name="lat">latitude</param>
+        /// <param name="lng">longitude</param>
         /// <returns></returns>
-        public static double GetSunProgress(DateTime date)
+        public static double GetSunProgress(DateTime date, double lat, double lng)
         {
             // get key timestamps from the given date
-            var phases = GetSunPhases(date, LAT, LNG);
+            var phases = GetSunPhases(date, lat, lng);
             long sunriseTicks = phases.First(phase => phase.Name.Value.Equals("Sunrise")).PhaseTime.Ticks;
             long sunsetTicks = phases.First(phase => phase.Name.Value.Equals("Sunset")).PhaseTime.Ticks;
 
@@ -86,7 +89,7 @@ namespace DynamicWallpaperNamespace
                 // date is during the night, A.M.
                 // start = previous day's sunset, end = given date's sunrise
                 DateTime prevDay = date.AddTicks(-1 * TimeSpan.TicksPerDay);
-                var prevPhases = GetSunPhases(prevDay, LAT, LNG);
+                var prevPhases = GetSunPhases(prevDay, lat, lng);
                 start = prevPhases.First(phase => phase.Name.Value.Equals("Sunset")).PhaseTime.Ticks;
                 end = sunriseTicks;
                 nightExtra = 0.5;
@@ -96,7 +99,7 @@ namespace DynamicWallpaperNamespace
                 // date is during the night, P.M.
                 // start = given date's sunset, end = next day's sunrise
                 DateTime nextDay = date.AddTicks(TimeSpan.TicksPerDay);
-                var nextPhases = GetSunPhases(nextDay, LAT, LNG);
+                var nextPhases = GetSunPhases(nextDay, lat, lng);
                 start = sunsetTicks;
                 end = nextPhases.First(phase => phase.Name.Value.Equals("Sunrise")).PhaseTime.Ticks;
                 nightExtra = 0.5;
@@ -110,11 +113,14 @@ namespace DynamicWallpaperNamespace
 
         /// <summary>
         /// Returns the soonest time after the given time that the sun will be at the given progress
+        /// for the given location
         /// </summary>
         /// <param name="deg">sun's progress through the day, represented as a degree value in range [0, 360)</param>
         /// <param name="time">the earliest time to consider</param>
+        /// <param name="lat">latitude</param>
+        /// <param name="lng">longitude</param>
         /// <returns>the soonest time after given time that the sun will be at given progress</returns>
-        public static DateTime GetNextTime(double deg, DateTime time)
+        public static DateTime GetNextTime(double deg, DateTime time, double lat, double lng)
         {
             double percent;
             long resultTicks = 0;
@@ -124,15 +130,15 @@ namespace DynamicWallpaperNamespace
                 // deg represents sun above horizon
                 percent = GetPercentageInRange(0.0, 180.0, deg);
                 // get time sun reaches that position between given day's sunrise and sunset
-                long minTicks = GetSunPhases(time, LAT, LNG).First(phase => phase.Name.Value.Equals("Sunrise")).PhaseTime.Ticks;
-                long maxTicks = GetSunPhases(time, LAT, LNG).First(phase => phase.Name.Value.Equals("Sunset")).PhaseTime.Ticks;
+                long minTicks = GetSunPhases(time, lat, lng).First(phase => phase.Name.Value.Equals("Sunrise")).PhaseTime.Ticks;
+                long maxTicks = GetSunPhases(time, lat, lng).First(phase => phase.Name.Value.Equals("Sunset")).PhaseTime.Ticks;
                 resultTicks = GetValueInRangeByPercentage(minTicks, maxTicks, percent);
                 // if that time is before given time, return the time the sun reaches that position between the next day's sunrise and sunset
                 if (resultTicks < time.Ticks)
                 {
                     DateTime nextDay = time.AddTicks(TimeSpan.TicksPerDay);
-                    minTicks = GetSunPhases(nextDay, LAT, LNG).First(phase => phase.Name.Value.Equals("Sunrise")).PhaseTime.Ticks;
-                    maxTicks = GetSunPhases(nextDay, LAT, LNG).First(phase => phase.Name.Value.Equals("Sunset")).PhaseTime.Ticks;
+                    minTicks = GetSunPhases(nextDay, lat, lng).First(phase => phase.Name.Value.Equals("Sunrise")).PhaseTime.Ticks;
+                    maxTicks = GetSunPhases(nextDay, lat, lng).First(phase => phase.Name.Value.Equals("Sunset")).PhaseTime.Ticks;
                     resultTicks = GetValueInRangeByPercentage(minTicks, maxTicks, percent);
                 }
             }
@@ -142,15 +148,15 @@ namespace DynamicWallpaperNamespace
                 percent = GetPercentageInRange(180.0, 360.0, deg);
                 // get time sun reaches that position between previous day's sunset and given day's sunrise
                 DateTime prevDay = time.AddTicks(-1 * TimeSpan.TicksPerDay);
-                long minTicks = GetSunPhases(prevDay, LAT, LNG).First(phase => phase.Name.Value.Equals("Sunset")).PhaseTime.Ticks;
-                long maxTicks = GetSunPhases(time, LAT, LNG).First(phase => phase.Name.Value.Equals("Sunrise")).PhaseTime.Ticks;
+                long minTicks = GetSunPhases(prevDay, lat, lng).First(phase => phase.Name.Value.Equals("Sunset")).PhaseTime.Ticks;
+                long maxTicks = GetSunPhases(time, lat, lng).First(phase => phase.Name.Value.Equals("Sunrise")).PhaseTime.Ticks;
                 resultTicks = GetValueInRangeByPercentage(minTicks, maxTicks, percent);
                 // if that time is before given time, get the time the sun reaches that position between given day's sunset and next day's sunrise
                 if (resultTicks < time.Ticks)
                 {
                     DateTime nextDay = time.AddTicks(TimeSpan.TicksPerDay);
-                    minTicks = GetSunPhases(time, LAT, LNG).First(phase => phase.Name.Value.Equals("Sunset")).PhaseTime.Ticks;
-                    maxTicks = GetSunPhases(nextDay, LAT, LNG).First(phase => phase.Name.Value.Equals("Sunrise")).PhaseTime.Ticks;
+                    minTicks = GetSunPhases(time, lat, lng).First(phase => phase.Name.Value.Equals("Sunset")).PhaseTime.Ticks;
+                    maxTicks = GetSunPhases(nextDay, lat, lng).First(phase => phase.Name.Value.Equals("Sunrise")).PhaseTime.Ticks;
                     resultTicks = GetValueInRangeByPercentage(minTicks, maxTicks, percent);
                 }
                 // if that time is before given time, return the time the sun reaches that position between next day's sunset and day-after-next's sunrise
@@ -158,8 +164,8 @@ namespace DynamicWallpaperNamespace
                 {
                     DateTime nextDay = time.AddTicks(TimeSpan.TicksPerDay);
                     DateTime dayAfterNext = time.AddTicks(2 * TimeSpan.TicksPerDay);
-                    minTicks = GetSunPhases(nextDay, LAT, LNG).First(phase => phase.Name.Value.Equals("Sunset")).PhaseTime.Ticks;
-                    maxTicks = GetSunPhases(dayAfterNext, LAT, LNG).First(phase => phase.Name.Value.Equals("Sunrise")).PhaseTime.Ticks;
+                    minTicks = GetSunPhases(nextDay, lat, lng).First(phase => phase.Name.Value.Equals("Sunset")).PhaseTime.Ticks;
+                    maxTicks = GetSunPhases(dayAfterNext, lat, lng).First(phase => phase.Name.Value.Equals("Sunrise")).PhaseTime.Ticks;
                     resultTicks = GetValueInRangeByPercentage(minTicks, maxTicks, percent);
                 }
             }

@@ -33,7 +33,7 @@ namespace DynamicWallpaperNamespace
             MainWindow = new MainWindow();
             MainWindow.Closing += MainWindow_Closing;
 
-            base.OnStartup(e); // call this here so WallpaperScheduler (which is created only after MainWindow is constructed) can detect Startup event
+            base.OnStartup(e);
         }
 
 

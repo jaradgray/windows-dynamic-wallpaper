@@ -38,7 +38,11 @@ namespace DynamicWallpaperNamespace
             set
             {
                 _dirPath = value;
-                DirPath_Change();
+                // Only process the new value if it isn't null
+                if (value != null)
+                {
+                    DirPath_Change();
+                }
             }
         }
 
@@ -61,7 +65,7 @@ namespace DynamicWallpaperNamespace
             }
         }
 
-        private DateTime _nextChangeTime = DateTime.Now; // time the wallpaper is scheduled to change next
+        private DateTime _nextChangeTime = DateTime.MinValue; // time the wallpaper is scheduled to change next
         public DateTime NextChangeTime
         {
             get
@@ -95,6 +99,26 @@ namespace DynamicWallpaperNamespace
             }
         }
 
+        private Location _location = new Location(100, 100);
+        public Location Location
+        {
+            get
+            {
+                return _location;
+            }
+            set
+            {
+                if (!value.Equals(_location))
+                {
+                    _location = value;
+                    if (IsRunning == true)
+                    {
+                        SyncToSunProgress();
+                    }
+                }
+            }
+        }
+
 
         // Private variables
         private DynamicWallpaper _wallpaper;
@@ -102,37 +126,36 @@ namespace DynamicWallpaperNamespace
 
 
         // Constructor
-        public WallpaperScheduler()
+        public WallpaperScheduler(double lat, double lng)
         {
+            // Instantiate properties and instance variables
             _timer = new Timer();
             _timer.AutoReset = false;
             _timer.Elapsed += Timer_Elapsed;
 
-            Application.Current.Startup += Application_Startup;
+            Location = new Location(lat, lng);
+
+            // If current wallpaper's path matches that of last persisted image...
+            string current = DesktopManager.GetDesktopWallpaperPath();
+            string persisted = Properties.Settings.Default.LastSetWallpaperPath;
+            if (current.Equals(persisted))
+            {
+                // Set DirPath to persisted image's directory (which initializes our remaining properties and starts the scheduler running)
+                DirPath = Path.GetDirectoryName(persisted);
+            }
+            else
+            {
+                // Otherwise, call Stop() to set members to indicate we're not running
+                Stop();
+            }
+
+            // Subscribe to events
             Application.Current.Exit += Application_Exit;
             SystemEvents.TimeChanged += SystemEvents_TimeChanged;
         }
 
 
         // Event handlers
-
-        private void Application_Startup(object sender, StartupEventArgs e)
-        {
-            Console.WriteLine("Application.Startup event fired");
-
-            // If current wallpaper's path doesn't match that of last persisted image...
-            string current = DesktopManager.GetDesktopWallpaperPath();
-            string persisted = Properties.Settings.Default.LastSetWallpaperPath;
-            if (!current.Equals(persisted))
-            {
-                // Indicate we're not scheduling wallpaper changes and return
-                IsRunning = false;
-                return;
-            }
-
-            // Set DirPath to persisted wallpaper's directory
-            DirPath = Path.GetDirectoryName(persisted);
-        }
 
         private void Application_Exit(object sender, ExitEventArgs e)
         {
@@ -142,17 +165,25 @@ namespace DynamicWallpaperNamespace
 
         private void SystemEvents_TimeChanged(object sender, EventArgs e)
         {
-            SyncToSunProgress();
+            if (IsRunning == true)
+            {
+                SyncToSunProgress();
+            }
         }
 
 
         // Private methods
 
+        /// <summary>
+        /// Attempts to read manifest.json file in directory at DirPath and create a new
+        /// DynamicWallpaper object from its data. Calls Stop() if there's an error; otherwise
+        /// sets WallpaperName and "starts running" by calling SyncToSunProgress()
+        /// </summary>
         private void DirPath_Change()
         {
             _timer.Enabled = false; // stop timer
 
-            // Read manifest file
+            // Try to read manifest file
             string json = "";
             try
             {
@@ -160,24 +191,20 @@ namespace DynamicWallpaperNamespace
             }
             catch (Exception e)
             {
-                string message = $"WallpaperScheduler.DirPath_Change - {e.ToString()}";
-                Console.Error.Write(message);
-                //MessageBox.Show(message);
-                IsRunning = false;
+                Console.Error.Write($"WallpaperScheduler.DirPath_Change - {e.ToString()}");
+                Stop();
                 return;
             }
 
-            // Instantiate DynamicWallpaper object from json
+            // Try to instantiate DynamicWallpaper object from json
             try
             {
                 _wallpaper = new DynamicWallpaper(json);
             }
             catch (Exception e)
             {
-                string message = $"WallpaperScheduler.DirPath_Change - {e.ToString()}";
-                Console.Error.Write(message);
-                //MessageBox.Show(message);
-                IsRunning = false;
+                Console.Error.Write($"WallpaperScheduler.DirPath_Change - {e.ToString()}");
+                Stop();
                 return;
             }
 
@@ -203,7 +230,7 @@ namespace DynamicWallpaperNamespace
 
             // Schedule _timer to run when the sun reaches the next image's progress
             Index = (Index + 1) % _wallpaper.Images.Count; // set Index to next image's index
-            DateTime changeTime = SunCalcHelper.GetNextTime(_wallpaper.Images[Index].Progress, DateTime.Now);
+            DateTime changeTime = SunCalcHelper.GetNextTime(_wallpaper.Images[Index].Progress, DateTime.Now, _location.Latitude, _location.Longitude);
             double interval = (changeTime.Ticks - DateTime.Now.Ticks) / TimeSpan.TicksPerMillisecond;
             if (interval < 1)
             {
@@ -217,20 +244,24 @@ namespace DynamicWallpaperNamespace
         /// <summary>
         /// Sets Index to that of the image whose progress is closest to sun's current
         /// progress without exceeding it, and changes wallpaper to that image
+        /// 
+        /// Note: calling this method will "start" the scheduler if it isn't running
         /// </summary>
         private void SyncToSunProgress()
         {
             _timer.Enabled = false;
 
+            // TODO probably don't need this check, since we're checking for IsRunning == true before calling this
+            //  from everywhere except DirPath_Change() (which only calls this if _wallpaper was created successfully)
             if (_wallpaper == null)
             {
-                IsRunning = false;
+                Stop();
                 return;
             }
 
             // Set Index to that of the image whose progress is closest to sun's current progress without exceeding it
             DateTime now = DateTime.Now;
-            double currentProgress = SunCalcHelper.GetSunProgress(now);
+            double currentProgress = SunCalcHelper.GetSunProgress(now, _location.Latitude, _location.Longitude);
             for (int i = 0; i < _wallpaper.Images.Count; i++)
             {
                 double progress = _wallpaper.Images[i].Progress;
@@ -241,6 +272,21 @@ namespace DynamicWallpaperNamespace
             // Change wallpaper immediately via _timer
             _timer.Interval = 1;
             _timer.Enabled = true;
+        }
+
+        /// <summary>
+        /// Disables timer, sets all properties and instance variables to indicate this WallpaperScheduler is not
+        /// controlling the wallpaper
+        /// </summary>
+        private void Stop()
+        {
+            _timer.Enabled = false;
+            DirPath = null;
+            Index = -1;
+            IsRunning = false;
+            NextChangeTime = DateTime.MinValue; // maybe NextChangeTime should be nullable ?
+            WallpaperName = "";
+            _wallpaper = null;
         }
     }
 }

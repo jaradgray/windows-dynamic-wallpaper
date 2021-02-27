@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace DynamicWallpaperNamespace
 {
@@ -84,6 +85,24 @@ namespace DynamicWallpaperNamespace
             }
         }
 
+        private Location _location = new Location(100, 100);
+        public Location Location
+        {
+            get
+            {
+                return _location;
+            }
+            private set
+            {
+                if (!value.Equals(_location))
+                {
+                    _location = value;
+                    _scheduler.Location = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
 
         // Private variables
 
@@ -92,7 +111,12 @@ namespace DynamicWallpaperNamespace
         // Constructor
         public MainWindowViewModel()
         {
-            _scheduler = new WallpaperScheduler();
+            // Create WallpaperScheduler from persisted location settings
+            double lat = Properties.Settings.Default.Latitude;
+            double lng = Properties.Settings.Default.Longitude;
+            _scheduler = new WallpaperScheduler(lat, lng);
+            // Set Location property (AFTER we create _scheduler)
+            Location = new Location(lat, lng);
 
             // Handle PropertyChanged events from _scheduler
             _scheduler.PropertyChanged += (s, e) =>
@@ -110,6 +134,11 @@ namespace DynamicWallpaperNamespace
                         break;
                 }
             };
+
+            // Initialize state to _scheduler (because we subscribe to its events AFTER we construct it)
+            IsSchedulerRunning = _scheduler.IsRunning;
+            WallpaperChangeTime = _scheduler.NextChangeTime;
+            CurrentWallpaperName = _scheduler.WallpaperName;
         }
 
 
@@ -131,6 +160,26 @@ namespace DynamicWallpaperNamespace
         {
             // Open Windows Explorer and show current wallpaper's directory
             Process.Start(_scheduler.DirPath);
+        }
+
+        public void Location_Click()
+        {
+            // Show window to change location
+            ChangeLocationWindow w = new ChangeLocationWindow(Location.Latitude, Location.Longitude);
+            w.Owner = Application.Current.MainWindow;
+            w.ShowDialog();
+
+            // If user clicked Ok button (and input was validated)...
+            if (w.OkClicked)
+            {
+                // Persist location values in settings
+                Properties.Settings.Default.Latitude = w.Latitude;
+                Properties.Settings.Default.Longitude = w.Longitude;
+                Properties.Settings.Default.Save();
+
+                // Set Location property (which re-creates _scheduler)
+                Location = new Location(w.Latitude, w.Longitude);
+            }
         }
     }
 }
