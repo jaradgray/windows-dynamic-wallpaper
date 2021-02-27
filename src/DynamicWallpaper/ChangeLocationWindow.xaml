@@ -10,8 +10,7 @@
         Background="#1d1d1d"
         Foreground="#99FFFFFF"
         WindowStartupLocation="CenterOwner"
-        ResizeMode="NoResize"
-        WindowStyle="ToolWindow">
+        ResizeMode="NoResize">
     <Window.Resources>
         <!--
             Note: to use resources from a different file, we have to
