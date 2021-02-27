@@ -176,6 +176,7 @@
                 Margin="16 0 0 0"
                 Padding="8 0 8 0"
                 Cursor="Hand"
+                ToolTip="Current wallpaper"
                 MouseEnter="WallpaperNameBorder_MouseEnter"
                 MouseLeave="WallpaperNameBorder_MouseLeave"
                 MouseLeftButtonDown="WallpaperNameBorder_MouseLeftButtonDown"
@@ -202,7 +203,8 @@
                 Grid.Row="1"
                 Grid.Column="3"
                 Margin="16 0 0 0"
-                Padding="8 0 8 0">
+                Padding="8 0 8 0"
+                ToolTip="Time of next background change">
                 <StackPanel
                     Orientation="Horizontal">
                     <Path
@@ -227,6 +229,7 @@
                 Padding="8 0 8 0"
                 HorizontalAlignment="Right"
                 Cursor="Hand"
+                ToolTip="Location"
                 MouseEnter="LocationBorder_MouseEnter"
                 MouseLeave="LocationBorder_MouseLeave"
                 MouseLeftButtonDown="LocationBorder_MouseLeftButtonDown"
