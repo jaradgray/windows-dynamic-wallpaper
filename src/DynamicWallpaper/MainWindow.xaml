@@ -10,7 +10,7 @@
         SizeToContent="Height"
         Background="#121212"
         Foreground="#DEFFFFFF">
-    
+
     <!-- Define resources in the Window's scope -->
     <Window.Resources>
 
@@ -25,7 +25,7 @@
         
             Stuff for Default Button Style (edited)
         -->
-        
+
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
                 <Setter.Value>
@@ -35,7 +35,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
+
         <SolidColorBrush x:Key="Button.Static.Background" Color="#222222" />
         <SolidColorBrush x:Key="Button.Static.Foreground" Color="#DEFFFFFF" />
         <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070" />
@@ -96,92 +96,126 @@
             </Setter>
         </Style>
     </Window.Resources>
-    
+
+    <!-- Outer container, with cells for borders, main content, and status bar -->
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="8" />
+            <RowDefinition Height="*" />
             <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="8" />
-            <RowDefinition Height="auto" /> <!-- status bar -->
         </Grid.RowDefinitions>
-        
+
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="8"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="*"/> <!-- blank fill -->
-            <ColumnDefinition Width="8"/>
+            <ColumnDefinition Width="8" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="8" />
         </Grid.ColumnDefinitions>
 
-        <!-- Top stuff -->
+        <!-- Main Content section -->
         <Grid
             Grid.Row="1"
-            Grid.Column="1"
-            Grid.ColumnSpan="2"
-            Margin="0 16 0 16"
-            Height="256">
+            Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
-                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="256" />
+                <ColumnDefinition Width="16" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
+            <!-- Icon -->
             <Image
                 Grid.Row="0"
                 Grid.Column="0"
-                Grid.RowSpan="3"
+                Grid.RowSpan="2"
                 Source="Resources/AppIcon_256.png"
                 Width="256"
-                Height="256"
-                Margin="0 0 16 0"/>
-            <TextBlock
+                Height="256"/>
+
+            <!-- Title stuff -->
+            <Grid
                 Grid.Row="0"
-                Grid.Column="1"
-                FontSize="32"
-                FontWeight="Light"
-                Text="Dynamic Wallpaper"/>
-            <TextBlock
+                Grid.Column="2"
+                Margin="0 0 0 48">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    FontSize="32"
+                    FontWeight="Light"
+                    Text="Dynamic Wallpaper"/>
+                <TextBlock
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="0 0 0 16"
+                    Foreground="{StaticResource Static.Foreground.Disabled}"
+                    FontSize="14"
+                    Text="Version: 1.0.0"/>
+                <TextBlock
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    FontSize="16"
+                    Foreground="{StaticResource Static.Foreground.MediumEmphasis}"
+                    TextWrapping="Wrap"
+                    Text="Automatically change your desktop background throughout the day based on your location"/>
+            </Grid>
+
+            <!-- Select Wallpaper stuff -->
+            <Grid
                 Grid.Row="1"
-                Grid.Column="1"
-                Margin="0 0 0 16"
-                Foreground="{StaticResource Static.Foreground.Disabled}"
-                FontSize="14"
-                Text="Version: 1.0.0"/>
-            <TextBlock
-                Grid.Row="2"
-                Grid.Column="1"
-                FontSize="16"
-                Foreground="{StaticResource Static.Foreground.MediumEmphasis}"
-                TextWrapping="Wrap"
-                Text="Automatically change your desktop background throughout the day based on your location"/>
+                Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Margin="0 0 0 8"
+                    FontSize="18"
+                    Text="Select Wallpaper"/>
+                <TextBlock
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Margin="0 0 0 8"
+                    FontSize="16"
+                    Foreground="#99FFFFFF"
+                    TextWrapping="Wrap"
+                    Text ="Set a dynamic wallpaper by selecting a file from its directory:"/>
+                <Button x:Name="selectWallpaperButton"
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Style="{StaticResource BaseButtonStyle}"
+                    HorizontalAlignment="Left"
+                    Padding="8"
+                    FontSize="16"
+                    Content="Select Wallpaper" Click="SelectWallpaperButton_Click"/>
+            </Grid>
         </Grid>
 
-        <TextBlock Grid.Row="2" Grid.Column="1"
-            Margin="0 0 0 8"
-            FontSize="18"
-            Text="Select Wallpaper"/>
-        <TextBlock Grid.Row="3" Grid.Column="1"
-            Margin="0 0 0 8"
-            FontSize="16"
-            Foreground="#99FFFFFF"
-            Text ="Set a dynamic wallpaper by selecting a file from its directory:"/>
-        <Button x:Name="selectWallpaperButton" Grid.Row="4" Grid.Column="1"
-            Style="{StaticResource BaseButtonStyle}"
-            HorizontalAlignment="Left"
-            Padding="8"
-            Margin="0 0 0 8"
-            FontSize="16"
-            Content="Select Wallpaper" Click="SelectWallpaperButton_Click"/>
-        
-        <!-- Status Bar -->
-        <Grid x:Name="statusBar" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="4" Background="#007acc">
+        <!-- Status bar -->
+        <Grid
+            x:Name="statusBar"
+            Grid.Row="2"
+            Grid.Column="0"
+            Grid.ColumnSpan="3"
+            Background="#007acc">
             <Grid.RowDefinitions>
                 <RowDefinition Height="2" />
                 <RowDefinition Height="auto" />
@@ -233,7 +267,7 @@
                         Text="wallpaperNameTextBlock"/>
                 </StackPanel>
             </Border>
-            
+
             <!-- Wallpaper change time -->
             <Border
                 x:Name="wallpaperChangeTimeBorder"
@@ -256,7 +290,7 @@
                         Text="wallpaperChangeTimeTextBlock"/>
                 </StackPanel>
             </Border>
-            
+
             <!-- Location -->
             <Border
                 x:Name="locationBorder"
