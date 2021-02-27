@@ -106,7 +106,7 @@ namespace DynamicWallpaperNamespace
         private void Location_Change(Location location)
         {
             // Update locationTextBlock to show location
-            locationTextBlock.Text = $"{location.Latitude}\u00B0N, {location.Longitude}\u00B0E";
+            locationTextBlock.Text = $"{Math.Round(location.Latitude, 1)}\u00B0N, {Math.Round(location.Longitude, 1)}\u00B0E";
         }
 
 
