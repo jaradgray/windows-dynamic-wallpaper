@@ -16,6 +16,7 @@
 
         <SolidColorBrush x:Key="Static.Foreground.HighEmphasis" Color="#DEFFFFFF" />
         <SolidColorBrush x:Key="Static.Foreground.MediumEmphasis" Color="#99FFFFFF" />
+        <SolidColorBrush x:Key="Static.Foreground.Disabled" Color="#4CFFFFFF" />
 
         <!--
             Can't just edit the default style. Have to re-define the entire style.
@@ -123,6 +124,7 @@
             Height="256">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
@@ -134,7 +136,7 @@
             <Image
                 Grid.Row="0"
                 Grid.Column="0"
-                Grid.RowSpan="2"
+                Grid.RowSpan="3"
                 Source="Resources/AppIcon_256.png"
                 Width="256"
                 Height="256"
@@ -142,12 +144,18 @@
             <TextBlock
                 Grid.Row="0"
                 Grid.Column="1"
-                Margin="0 0 0 16"
                 FontSize="32"
                 FontWeight="Light"
                 Text="Dynamic Wallpaper"/>
             <TextBlock
                 Grid.Row="1"
+                Grid.Column="1"
+                Margin="0 0 0 16"
+                Foreground="{StaticResource Static.Foreground.Disabled}"
+                FontSize="14"
+                Text="Version: 1.0.0"/>
+            <TextBlock
+                Grid.Row="2"
                 Grid.Column="1"
                 FontSize="16"
                 Foreground="{StaticResource Static.Foreground.MediumEmphasis}"
