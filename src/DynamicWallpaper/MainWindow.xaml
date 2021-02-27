@@ -15,6 +15,7 @@
     <Window.Resources>
 
         <SolidColorBrush x:Key="Static.Foreground.HighEmphasis" Color="#DEFFFFFF" />
+        <SolidColorBrush x:Key="Static.Foreground.MediumEmphasis" Color="#99FFFFFF" />
 
         <!--
             Can't just edit the default style. Have to re-define the entire style.
@@ -102,8 +103,6 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" /> <!-- blank fill -->
             <RowDefinition Height="8" />
             <RowDefinition Height="auto" /> <!-- status bar -->
         </Grid.RowDefinitions>
@@ -115,27 +114,57 @@
             <ColumnDefinition Width="8"/>
         </Grid.ColumnDefinitions>
 
+        <!-- Top stuff -->
+        <Grid
+            Grid.Row="1"
+            Grid.Column="1"
+            Grid.ColumnSpan="2"
+            Margin="0 16 0 16"
+            Height="256">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
-            TextAlignment="Center"
-            FontSize="32"
-            FontWeight="Light"
-            Text="Dynamic Wallpaper"/>
-        <Image Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"
-            Source="Resources/AppIcon_256.png"
-            Width="256"
-            Height="256"
-            Margin="0 0 0 16"/>
-        <TextBlock Grid.Row="3" Grid.Column="1"
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Image
+                Grid.Row="0"
+                Grid.Column="0"
+                Grid.RowSpan="2"
+                Source="Resources/AppIcon_256.png"
+                Width="256"
+                Height="256"
+                Margin="0 0 16 0"/>
+            <TextBlock
+                Grid.Row="0"
+                Grid.Column="1"
+                Margin="0 0 0 16"
+                FontSize="32"
+                FontWeight="Light"
+                Text="Dynamic Wallpaper"/>
+            <TextBlock
+                Grid.Row="1"
+                Grid.Column="1"
+                FontSize="16"
+                Foreground="{StaticResource Static.Foreground.MediumEmphasis}"
+                TextWrapping="Wrap"
+                Text="Automatically change your desktop background throughout the day based on your location"/>
+        </Grid>
+
+        <TextBlock Grid.Row="2" Grid.Column="1"
             Margin="0 0 0 8"
             FontSize="18"
             Text="Select Wallpaper"/>
-        <TextBlock Grid.Row="4" Grid.Column="1"
+        <TextBlock Grid.Row="3" Grid.Column="1"
             Margin="0 0 0 8"
             FontSize="16"
             Foreground="#99FFFFFF"
             Text ="Set a dynamic wallpaper by selecting a file from its directory:"/>
-        <Button x:Name="selectWallpaperButton" Grid.Row="5" Grid.Column="1"
+        <Button x:Name="selectWallpaperButton" Grid.Row="4" Grid.Column="1"
             Style="{StaticResource BaseButtonStyle}"
             HorizontalAlignment="Left"
             Padding="8"
@@ -144,7 +173,7 @@
             Content="Select Wallpaper" Click="SelectWallpaperButton_Click"/>
         
         <!-- Status Bar -->
-        <Grid x:Name="statusBar" Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="4" Background="#007acc">
+        <Grid x:Name="statusBar" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="4" Background="#007acc">
             <Grid.RowDefinitions>
                 <RowDefinition Height="2" />
                 <RowDefinition Height="auto" />
