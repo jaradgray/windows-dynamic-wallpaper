@@ -156,7 +156,7 @@ namespace DynamicWallpaperNamespace
             }
         }
 
-        public void WallpaperNameTextBlock_Click()
+        public void WallpaperName_Click()
         {
             // Open Windows Explorer and show current wallpaper's directory
             Process.Start(_scheduler.DirPath);

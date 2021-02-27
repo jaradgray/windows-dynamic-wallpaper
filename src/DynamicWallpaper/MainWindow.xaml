@@ -163,28 +163,56 @@
                 Margin="8 0 0 0"
                 FontSize="16"
                 Text="Hello"/>
-            <TextBlock x:Name="wallpaperNameTextBlock"
+
+            <!-- Surround with Border because Panels don't have Padding property -->
+            <Border
+                x:Name="wallpaperNameBorder"
                 Grid.Row="1"
                 Grid.Column="2"
                 Margin="16 0 0 0"
                 Padding="8 0 8 0"
-                FontSize="16"
-                Text="wallpaperNameTextBlock"
                 Cursor="Hand"
-                MouseEnter="WallpaperNameTextBlock_MouseEnter"
-                MouseLeave="WallpaperNameTextBlock_MouseLeave"
-                MouseLeftButtonDown="WallpaperNameTextBlock_MouseLeftButtonDown"
-                MouseLeftButtonUp="WallpaperNameTextBlock_MouseLeftButtonUp"
-                Visibility="Collapsed"/>
-            <TextBlock x:Name="wallpaperChangeTimeTextBlock"
+                MouseEnter="WallpaperNameBorder_MouseEnter"
+                MouseLeave="WallpaperNameBorder_MouseLeave"
+                MouseLeftButtonDown="WallpaperNameBorder_MouseLeftButtonDown"
+                MouseLeftButtonUp="WallpaperNameBorder_MouseLeftButtonUp">
+                <StackPanel
+                    Orientation="Horizontal">
+                    <Path
+                        Stretch="Uniform"
+                        Fill="{StaticResource Static.Foreground.HighEmphasis}"
+                        Data="M6.002,5.5c0,0.829-0.671,1.5-1.5,1.5s-1.5-0.671-1.5-1.5S3.673,4,4.502,4S6.002,4.671,6.002,5.5z M2.002,1
+	                        c-1.104,0-2,0.896-2,2v10c0,1.104,0.896,2,2,2h12c1.104,0,2-0.896,2-2V3c0-1.104-0.896-2-2-2H2.002z M14.002,2c0.553,0,1,0.448,1,1
+	                        v6.5l-3.777-1.947c-0.191-0.096-0.424-0.059-0.576,0.093l-3.71,3.709l-2.66-1.771C4.08,9.452,3.816,9.479,3.648,9.646L1.002,12V3
+	                        c0-0.552,0.448-1,1-1H14.002z"/>
+                    <TextBlock x:Name="wallpaperNameTextBlock"
+                        Margin="8 0 0 0"
+                        FontSize="16"
+                        Text="wallpaperNameTextBlock"/>
+                </StackPanel>
+            </Border>
+            
+            <Border
+                x:Name="wallpaperChangeTimeBorder"
                 Grid.Row="1"
                 Grid.Column="3"
                 Margin="16 0 0 0"
-                FontSize="16"
-                Text="wallpaperChangeTimeTextBlock"
-                Visibility="Collapsed"/>
+                Padding="8 0 8 0">
+                <StackPanel
+                    Orientation="Horizontal">
+                    <Path
+                        Stretch="Uniform"
+                        Fill="{StaticResource Static.Foreground.HighEmphasis}"
+                        Data="M12.5 4a.5.5 0 0 0-1 0v3.248L5.233 3.612C4.693 3.3 4 3.678 4 4.308v7.384c0 .63.692 1.01 1.233.697L11.5 8.753V12a.5.5 0 0 0 1 0V4z"/>
+                    <TextBlock x:Name="wallpaperChangeTimeTextBlock"
+                        Grid.Row="1"
+                        Grid.Column="3"
+                        Margin="8 0 0 0"
+                        FontSize="16"
+                        Text="wallpaperChangeTimeTextBlock"/>
+                </StackPanel>
+            </Border>
             
-            <!-- Surround with Border because Panels don't have Padding property -->
             <Border
                 x:Name="locationBorder"
                 Grid.Row="1"
@@ -201,13 +229,11 @@
                     Orientation="Horizontal">
                     <Path
                         Stretch="Uniform"
-                        HorizontalAlignment="Left"
                         Fill="{StaticResource Static.Foreground.HighEmphasis}"
                         Data="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
                     <TextBlock
                         x:Name="locationTextBlock"
                         Margin="8 0 0 0"
-                        HorizontalAlignment="Center"
                         FontSize="16"
                         Text="Hi there"/>
                 </StackPanel>

@@ -69,38 +69,38 @@ namespace DynamicWallpaperNamespace
             if (isRunning == null)
             {
                 statusBar.Background = (Brush)new BrushConverter().ConvertFrom("#FF007acc");
-                wallpaperChangeTimeTextBlock.Visibility = Visibility.Collapsed;
-                wallpaperNameTextBlock.Visibility = Visibility.Collapsed;
+                wallpaperChangeTimeBorder.Visibility = Visibility.Collapsed;
+                wallpaperNameBorder.Visibility = Visibility.Collapsed;
                 ((App)Application.Current).SetNotifyIconText("Dynamic Wallpaper");
             }
             else if ((bool)isRunning)
             {
                 statusBar.Background = Brushes.Green;
                 statusTextBlock.Text = "Running";
-                wallpaperChangeTimeTextBlock.Visibility = Visibility.Visible;
-                wallpaperNameTextBlock.Visibility = Visibility.Visible;
+                wallpaperChangeTimeBorder.Visibility = Visibility.Visible;
+                wallpaperNameBorder.Visibility = Visibility.Visible;
                 ((App)Application.Current).SetNotifyIconText("Dynamic Wallpaper\nRunning");
             }
             else
             {
                 statusBar.Background = Brushes.Firebrick;
                 statusTextBlock.Text = "Not Running";
-                wallpaperChangeTimeTextBlock.Visibility = Visibility.Collapsed;
-                wallpaperNameTextBlock.Visibility = Visibility.Collapsed;
+                wallpaperChangeTimeBorder.Visibility = Visibility.Collapsed;
+                wallpaperNameBorder.Visibility = Visibility.Collapsed;
                 ((App)Application.Current).SetNotifyIconText("Dynamic Wallpaper\nNot running");
             }
         }
 
         private void WallpaperChangeTime_Change(DateTime time)
         {
-            wallpaperChangeTimeTextBlock.Text = $"Next wallpaper change: {time.ToString()}";
-            wallpaperChangeTimeTextBlock.Visibility = time.Equals(DateTime.MinValue) ? Visibility.Collapsed : Visibility.Visible;
+            wallpaperChangeTimeTextBlock.Text = time.ToString();
+            wallpaperChangeTimeBorder.Visibility = time.Equals(DateTime.MinValue) ? Visibility.Collapsed : Visibility.Visible;
         }
 
         private void CurrentWallpaperName_Change(string name)
         {
-            wallpaperNameTextBlock.Text = $"Current wallpaper: {name}";
-            wallpaperNameTextBlock.Visibility = "".Equals(name) ? Visibility.Collapsed : Visibility.Visible;
+            wallpaperNameTextBlock.Text = name;
+            wallpaperNameBorder.Visibility = "".Equals(name) ? Visibility.Collapsed : Visibility.Visible;
         }
 
         private void Location_Change(Location location)
@@ -112,25 +112,25 @@ namespace DynamicWallpaperNamespace
 
         // Wallpaper Name mouse interaction
 
-        private void WallpaperNameTextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void WallpaperNameBorder_MouseEnter(object sender, MouseEventArgs e)
         {
-            ((TextBlock)sender).Background = (Brush)new BrushConverter().ConvertFrom("#44FFFFFF");
+            ((Border)sender).Background = (Brush)new BrushConverter().ConvertFrom("#22FFFFFF");
         }
 
-        private void WallpaperNameTextBlock_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void WallpaperNameBorder_MouseLeave(object sender, MouseEventArgs e)
         {
-            ((TextBlock)sender).Background = (Brush)new BrushConverter().ConvertFrom("#22FFFFFF");
-            _viewModel.WallpaperNameTextBlock_Click();
+            ((Border)sender).Background = (Brush)new BrushConverter().ConvertFrom("#00FFFFFF");
         }
 
-        private void WallpaperNameTextBlock_MouseEnter(object sender, MouseEventArgs e)
+        private void WallpaperNameBorder_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            ((TextBlock)sender).Background = (Brush)new BrushConverter().ConvertFrom("#22FFFFFF");
+            ((Border)sender).Background = (Brush)new BrushConverter().ConvertFrom("#44FFFFFF");
         }
 
-        private void WallpaperNameTextBlock_MouseLeave(object sender, MouseEventArgs e)
+        private void WallpaperNameBorder_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            ((TextBlock)sender).Background = (Brush)new BrushConverter().ConvertFrom("#00FFFFFF");
+            ((Border)sender).Background = (Brush)new BrushConverter().ConvertFrom("#22FFFFFF");
+            _viewModel.WallpaperName_Click();
         }
 
 
