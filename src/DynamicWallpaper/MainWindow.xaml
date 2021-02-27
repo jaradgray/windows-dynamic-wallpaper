@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:DynamicWallpaperNamespace"
         mc:Ignorable="d"
         Title="Dynamic Wallpaper"
-        SizeToContent="WidthAndHeight"
+        Width="800"
+        SizeToContent="Height"
         Background="#121212"
         Foreground="#DEFFFFFF">
     
