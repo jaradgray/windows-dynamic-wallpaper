@@ -96,39 +96,39 @@ namespace DynamicWallpaperNamespace
             // progress
             double lat = Properties.Settings.Default.Latitude;
             double lng = Properties.Settings.Default.Longitude;
-            sunriseProgressTextBlock.Text = SunCalcHelper.GetSunProgress(sunrise, lat, lng).ToString();
-            sunriseEndProgressTextBlock.Text = SunCalcHelper.GetSunProgress(sunriseEnd, lat, lng).ToString();
-            goldenHourEndProgressTextBlock.Text = SunCalcHelper.GetSunProgress(goldenHourEnd, lat, lng).ToString();
-            solarNoonProgressTextBlock.Text = SunCalcHelper.GetSunProgress(solarNoon, lat, lng).ToString();
-            goldenHourProgressTextBlock.Text = SunCalcHelper.GetSunProgress(goldenHour, lat, lng).ToString();
-            sunsetStartProgressTextBlock.Text = SunCalcHelper.GetSunProgress(sunsetStart, lat, lng).ToString();
-            sunsetProgressTextBlock.Text = SunCalcHelper.GetSunProgress(sunset, lat, lng).ToString();
-            duskProgressTextBlock.Text = SunCalcHelper.GetSunProgress(dusk, lat, lng).ToString();
-            nauticalDuskProgressTextBlock.Text = SunCalcHelper.GetSunProgress(nauticalDusk, lat, lng).ToString();
-            nightProgressTextBlock.Text = SunCalcHelper.GetSunProgress(night, lat, lng).ToString();
-            nadirProgressTextBlock.Text = SunCalcHelper.GetSunProgress(nadir, lat, lng).ToString();
-            nightEndProgressTextBlock.Text = SunCalcHelper.GetSunProgress(nightEnd, lat, lng).ToString();
-            nauticalDawnProgressTextBlock.Text = SunCalcHelper.GetSunProgress(nauticalDawn, lat, lng).ToString();
-            dawnProgressTextBlock.Text = SunCalcHelper.GetSunProgress(dawn, lat, lng).ToString();
+            sunriseProgressTextBlock.Text = Math.Round(SunCalcHelper.GetSunProgress(sunrise, lat, lng), 2).ToString();
+            sunriseEndProgressTextBlock.Text = Math.Round(SunCalcHelper.GetSunProgress(sunriseEnd, lat, lng), 2).ToString();
+            goldenHourEndProgressTextBlock.Text = Math.Round(SunCalcHelper.GetSunProgress(goldenHourEnd, lat, lng), 2).ToString();
+            solarNoonProgressTextBlock.Text = Math.Round(SunCalcHelper.GetSunProgress(solarNoon, lat, lng), 2).ToString();
+            goldenHourProgressTextBlock.Text = Math.Round(SunCalcHelper.GetSunProgress(goldenHour, lat, lng), 2).ToString();
+            sunsetStartProgressTextBlock.Text = Math.Round(SunCalcHelper.GetSunProgress(sunsetStart, lat, lng), 2).ToString();
+            sunsetProgressTextBlock.Text = Math.Round(SunCalcHelper.GetSunProgress(sunset, lat, lng), 2).ToString();
+            duskProgressTextBlock.Text = Math.Round(SunCalcHelper.GetSunProgress(dusk, lat, lng), 2).ToString();
+            nauticalDuskProgressTextBlock.Text = Math.Round(SunCalcHelper.GetSunProgress(nauticalDusk, lat, lng), 2).ToString();
+            nightProgressTextBlock.Text = Math.Round(SunCalcHelper.GetSunProgress(night, lat, lng), 2).ToString();
+            nadirProgressTextBlock.Text = Math.Round(SunCalcHelper.GetSunProgress(nadir, lat, lng), 2).ToString();
+            nightEndProgressTextBlock.Text = Math.Round(SunCalcHelper.GetSunProgress(nightEnd, lat, lng), 2).ToString();
+            nauticalDawnProgressTextBlock.Text = Math.Round(SunCalcHelper.GetSunProgress(nauticalDawn, lat, lng), 2).ToString();
+            dawnProgressTextBlock.Text = Math.Round(SunCalcHelper.GetSunProgress(dawn, lat, lng), 2).ToString();
         }
 
         private void AverageProgresses_Change(Dictionary<string, double> progresses)
         {
             // Update TextBlocks
-            sunriseAverageProgressTextBlock.Text = progresses[SunCalcHelper.PHASE_NAME_SUNRISE].ToString();
-            sunriseEndAverageProgressTextBlock.Text = progresses[SunCalcHelper.PHASE_NAME_SUNRISE_END].ToString();
-            goldenHourEndAverageProgressTextBlock.Text = progresses[SunCalcHelper.PHASE_NAME_GOLDEN_HOUR_END].ToString();
-            solarNoonAverageProgressTextBlock.Text = progresses[SunCalcHelper.PHASE_NAME_SOLAR_NOON].ToString();
-            goldenHourAverageProgressTextBlock.Text = progresses[SunCalcHelper.PHASE_NAME_GOLDEN_HOUR].ToString();
-            sunsetStartAverageProgressTextBlock.Text = progresses[SunCalcHelper.PHASE_NAME_SUNSET_START].ToString();
-            sunsetAverageProgressTextBlock.Text = progresses[SunCalcHelper.PHASE_NAME_SUNSET].ToString();
-            duskAverageProgressTextBlock.Text = progresses[SunCalcHelper.PHASE_NAME_DUSK].ToString();
-            nauticalDuskAverageProgressTextBlock.Text = progresses[SunCalcHelper.PHASE_NAME_NAUTICAL_DUSK].ToString();
-            nightAverageProgressTextBlock.Text = progresses[SunCalcHelper.PHASE_NAME_NIGHT].ToString();
-            nadirAverageProgressTextBlock.Text = progresses[SunCalcHelper.PHASE_NAME_NADIR].ToString();
-            nightEndAverageProgressTextBlock.Text = progresses[SunCalcHelper.PHASE_NAME_NIGHT_END].ToString();
-            nauticalDawnAverageProgressTextBlock.Text = progresses[SunCalcHelper.PHASE_NAME_NAUTICAL_DAWN].ToString();
-            dawnAverageProgressTextBlock.Text = progresses[SunCalcHelper.PHASE_NAME_DAWN].ToString();
+            sunriseAverageProgressTextBlock.Text = Math.Round(progresses[SunCalcHelper.PHASE_NAME_SUNRISE], 2).ToString();
+            sunriseEndAverageProgressTextBlock.Text = Math.Round(progresses[SunCalcHelper.PHASE_NAME_SUNRISE_END], 2).ToString();
+            goldenHourEndAverageProgressTextBlock.Text = Math.Round(progresses[SunCalcHelper.PHASE_NAME_GOLDEN_HOUR_END], 2).ToString();
+            solarNoonAverageProgressTextBlock.Text = Math.Round(progresses[SunCalcHelper.PHASE_NAME_SOLAR_NOON], 2).ToString();
+            goldenHourAverageProgressTextBlock.Text = Math.Round(progresses[SunCalcHelper.PHASE_NAME_GOLDEN_HOUR], 2).ToString();
+            sunsetStartAverageProgressTextBlock.Text = Math.Round(progresses[SunCalcHelper.PHASE_NAME_SUNSET_START], 2).ToString();
+            sunsetAverageProgressTextBlock.Text = Math.Round(progresses[SunCalcHelper.PHASE_NAME_SUNSET], 2).ToString();
+            duskAverageProgressTextBlock.Text = Math.Round(progresses[SunCalcHelper.PHASE_NAME_DUSK], 2).ToString();
+            nauticalDuskAverageProgressTextBlock.Text = Math.Round(progresses[SunCalcHelper.PHASE_NAME_NAUTICAL_DUSK], 2).ToString();
+            nightAverageProgressTextBlock.Text = Math.Round(progresses[SunCalcHelper.PHASE_NAME_NIGHT], 2).ToString();
+            nadirAverageProgressTextBlock.Text = Math.Round(progresses[SunCalcHelper.PHASE_NAME_NADIR], 2).ToString();
+            nightEndAverageProgressTextBlock.Text = Math.Round(progresses[SunCalcHelper.PHASE_NAME_NIGHT_END], 2).ToString();
+            nauticalDawnAverageProgressTextBlock.Text = Math.Round(progresses[SunCalcHelper.PHASE_NAME_NAUTICAL_DAWN], 2).ToString();
+            dawnAverageProgressTextBlock.Text = Math.Round(progresses[SunCalcHelper.PHASE_NAME_DAWN], 2).ToString();
         }
     }
 }
