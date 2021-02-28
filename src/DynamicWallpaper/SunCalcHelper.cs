@@ -19,6 +19,22 @@ namespace DynamicWallpaperNamespace
         //public const double LNG = -86.495820;
         public const int PRECISION = 4; // number of decimal places to round to
 
+        // SunPhase names
+        public const string PHASE_NAME_SUNRISE = "Sunrise";
+        public const string PHASE_NAME_SUNRISE_END = "Sunrise End";
+        public const string PHASE_NAME_GOLDEN_HOUR_END = "Golden Hour End";
+        public const string PHASE_NAME_SOLAR_NOON = "Solar Noon";
+        public const string PHASE_NAME_GOLDEN_HOUR = "Golden Hour";
+        public const string PHASE_NAME_SUNSET_START = "Sunset Start";
+        public const string PHASE_NAME_SUNSET = "Sunset";
+        public const string PHASE_NAME_DUSK = "Dusk";
+        public const string PHASE_NAME_NAUTICAL_DUSK = "Nautical Dusk";
+        public const string PHASE_NAME_NIGHT = "Night";
+        public const string PHASE_NAME_NADIR = "Nadir";
+        public const string PHASE_NAME_NIGHT_END = "Night End";
+        public const string PHASE_NAME_NAUTICAL_DAWN = "Nautical Dawn";
+        public const string PHASE_NAME_DAWN = "Dawn";
+
 
         #region Public Methods
 

@@ -1,0 +1,541 @@
+﻿<Window x:Class="DynamicWallpaperNamespace.SunInfoWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DynamicWallpaperNamespace"
+        mc:Ignorable="d"
+        Title="Sun Info"
+        SizeToContent="WidthAndHeight"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner"
+        Background="#1d1d1d"
+        Foreground="#99FFFFFF">
+    <Window.Resources>
+        <SolidColorBrush x:Key="Static.Foreground.HighEmphasis" Color="#DEFFFFFF" />
+        <SolidColorBrush x:Key="Static.Foreground.MediumEmphasis" Color="#99FFFFFF" />
+        <SolidColorBrush x:Key="Static.Foreground.Disabled" Color="#4CFFFFFF" />
+        
+        <Style x:Key="Static.TextBlock.DataItem"
+               TargetType="TextBlock">
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="Width" Value="150" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+            <Setter Property="Margin" Value="0 0 0 8" />
+            <Setter Property="Foreground" Value="{StaticResource Static.Foreground.MediumEmphasis}" />
+        </Style>
+
+        <Style x:Key="Static.TextBlock.DataHeading"
+               TargetType="TextBlock"
+               BasedOn="{StaticResource Static.TextBlock.DataItem}">
+            <Setter Property="Foreground" Value="{StaticResource Static.Foreground.HighEmphasis}" />
+        </Style>
+
+        <SolidColorBrush x:Key="Static.Background.RowVariation" Color="#272727" />
+        
+        <Style x:Key="Static.Rectangle.RowBackgroundLight"
+               TargetType="Rectangle">
+            <Setter Property="Grid.ColumnSpan" Value="4" />
+            <Setter Property="Fill" Value="{StaticResource Static.Background.RowVariation}" />
+        </Style>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="16" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="16" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="16" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="16" />
+        </Grid.ColumnDefinitions>
+        
+        <!-- Main Content section -->
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            
+            <!-- Title stuff -->
+            <Grid Grid.Row="0" Grid.Column="0"
+                  Margin="0 0 0 32">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Margin="0 0 0 8"
+                    FontSize="32"
+                    FontWeight="Light"
+                    Foreground="{StaticResource Static.Foreground.HighEmphasis}"
+                    Text="Sun Info" />
+                <TextBlock
+                    x:Name="dateTextBlock"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Margin="0 0 0 8"
+                    FontSize="18"
+                    Foreground="{StaticResource Static.Foreground.HighEmphasis}"
+                    Text="dateTextBlock"/>
+                <TextBlock
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    MaxWidth="600"
+                    FontSize="16"
+                    TextWrapping="Wrap"
+                    Text="This window shows the time and progress of the sun at each of its phases today, and each phase's average progress for the next year." />
+            </Grid>
+            
+            <!-- Info -->
+            <Grid Grid.Row="1" Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+
+                <!-- Column headings -->
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Text="Sun Phase"
+                    Style="{StaticResource Static.TextBlock.DataHeading}"/>
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Text="Time"
+                    Style="{StaticResource Static.TextBlock.DataHeading}"/>
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    Text="Progress"
+                    Style="{StaticResource Static.TextBlock.DataHeading}"/>
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="3"
+                    Text="Average Progress"
+                    Style="{StaticResource Static.TextBlock.DataHeading}"/>
+                
+                <!-- Data -->
+                
+                <!-- Sunrise -->
+                <Rectangle
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Style="{StaticResource Static.Rectangle.RowBackgroundLight}"/>
+                <TextBlock
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Text="Sunrise"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+                <TextBlock
+                    x:Name="sunriseTimeTextBlock"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Text="sunriseTimeTextBlock"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+                <TextBlock
+                    x:Name="sunriseProgressTextBlock"
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Text="sunriseProgressTextBlock"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+                <TextBlock
+                    x:Name="sunriseAverageProgressTextBlock"
+                    Grid.Row="1"
+                    Grid.Column="3"
+                    Text="sunriseAverageProgressTextBlock"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+
+                <!-- Sunrise End -->
+                <TextBlock
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Text="Sunrise End"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+                <TextBlock
+                    x:Name="sunriseEndTimeTextBlock"
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Text="sunriseEndTimeTextBlock"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+                <TextBlock
+                    x:Name="sunriseEndProgressTextBlock"
+                    Grid.Row="2"
+                    Grid.Column="2"
+                    Text="sunriseEndProgressTextBlock"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+                <TextBlock
+                    x:Name="sunriseEndAverageProgressTextBlock"
+                    Grid.Row="2"
+                    Grid.Column="3"
+                    Text="sunriseEndAverageProgressTextBlock"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+
+                <!-- Golden Hour End -->
+                <Rectangle
+                    Grid.Row="3"
+                    Grid.Column="0"
+                    Style="{StaticResource Static.Rectangle.RowBackgroundLight}"/>
+                <TextBlock
+                    Grid.Row="3"
+                    Grid.Column="0"
+                    Text="Golden Hour End"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+                <TextBlock
+                    x:Name="goldenHourEndTimeTextBlock"
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    Text="goldenHourEndTimeTextBlock"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+                <TextBlock
+                    x:Name="goldenHourEndProgressTextBlock"
+                    Grid.Row="3"
+                    Grid.Column="2"
+                    Text="goldenHourEndProgressTextBlock"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+                <TextBlock
+                    x:Name="goldenHourEndAverageProgressTextBlock"
+                    Grid.Row="3"
+                    Grid.Column="3"
+                    Text="goldenHourEndAverageProgressTextBlock"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+
+                <!-- Solar Noon -->
+                <TextBlock
+                    Grid.Row="4"
+                    Grid.Column="0"
+                    Text="Solar Noon"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+                <TextBlock
+                    x:Name="solarNoonTimeTextBlock"
+                    Grid.Row="4"
+                    Grid.Column="1"
+                    Text="solarNoonTimeTextBlock"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+                <TextBlock
+                    x:Name="solarNoonProgressTextBlock"
+                    Grid.Row="4"
+                    Grid.Column="2"
+                    Text="solarNoonProgressTextBlock"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+                <TextBlock
+                    x:Name="solarNoonAverageProgressTextBlock"
+                    Grid.Row="4"
+                    Grid.Column="3"
+                    Text="solarNoonAverageProgressTextBlock"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+
+                <!-- Golden Hour -->
+                <Rectangle
+                    Grid.Row="5"
+                    Grid.Column="0"
+                    Style="{StaticResource Static.Rectangle.RowBackgroundLight}"/>
+                <TextBlock
+                    Grid.Row="5"
+                    Grid.Column="0"
+                    Text="Golden Hour"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+                <TextBlock
+                    x:Name="goldenHourTimeTextBlock"
+                    Grid.Row="5"
+                    Grid.Column="1"
+                    Text="goldenHourTimeTextBlock"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+                <TextBlock
+                    x:Name="goldenHourProgressTextBlock"
+                    Grid.Row="5"
+                    Grid.Column="2"
+                    Text="goldenHourProgressTextBlock"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+                <TextBlock
+                    x:Name="goldenHourAverageProgressTextBlock"
+                    Grid.Row="5"
+                    Grid.Column="3"
+                    Text="goldenHourAverageProgressTextBlock"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+
+                <!-- Sunset Start -->
+                <TextBlock
+                    Grid.Row="6"
+                    Grid.Column="0"
+                    Text="Sunset Start"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+                <TextBlock
+                    x:Name="sunsetStartTimeTextBlock"
+                    Grid.Row="6"
+                    Grid.Column="1"
+                    Text="sunsetStartTimeTextBlock"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+                <TextBlock
+                    x:Name="sunsetStartProgressTextBlock"
+                    Grid.Row="6"
+                    Grid.Column="2"
+                    Text="sunsetStartProgressTextBlock"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+                <TextBlock
+                    x:Name="sunsetStartAverageProgressTextBlock"
+                    Grid.Row="6"
+                    Grid.Column="3"
+                    Text="sunsetStartAverageProgressTextBlock"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+
+                <!-- Sunset -->
+                <Rectangle
+                    Grid.Row="7"
+                    Grid.Column="0"
+                    Style="{StaticResource Static.Rectangle.RowBackgroundLight}"/>
+                <TextBlock
+                    Grid.Row="7"
+                    Grid.Column="0"
+                    Text="Sunset"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+                <TextBlock
+                    x:Name="sunsetTimeTextBlock"
+                    Grid.Row="7"
+                    Grid.Column="1"
+                    Text="sunsetTimeTextBlock"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+                <TextBlock
+                    x:Name="sunsetProgressTextBlock"
+                    Grid.Row="7"
+                    Grid.Column="2"
+                    Text="sunsetProgressTextBlock"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+                <TextBlock
+                    x:Name="sunsetAverageProgressTextBlock"
+                    Grid.Row="7"
+                    Grid.Column="3"
+                    Text="sunsetAverageProgressTextBlock"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+
+                <!-- Dusk -->
+                <TextBlock
+                    Grid.Row="8"
+                    Grid.Column="0"
+                    Text="Dusk"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+                <TextBlock
+                    x:Name="duskTimeTextBlock"
+                    Grid.Row="8"
+                    Grid.Column="1"
+                    Text="duskTimeTextBlock"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+                <TextBlock
+                    x:Name="duskProgressTextBlock"
+                    Grid.Row="8"
+                    Grid.Column="2"
+                    Text="duskProgressTextBlock"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+                <TextBlock
+                    x:Name="duskAverageProgressTextBlock"
+                    Grid.Row="8"
+                    Grid.Column="3"
+                    Text="duskAverageProgressTextBlock"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+
+                <!-- Nautical Dusk -->
+                <Rectangle
+                    Grid.Row="9"
+                    Grid.Column="0"
+                    Style="{StaticResource Static.Rectangle.RowBackgroundLight}"/>
+                <TextBlock
+                    Grid.Row="9"
+                    Grid.Column="0"
+                    Text="Nautical Dusk"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+                <TextBlock
+                    x:Name="nauticalDuskTimeTextBlock"
+                    Grid.Row="9"
+                    Grid.Column="1"
+                    Text="nauticalDuskTimeTextBlock"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+                <TextBlock
+                    x:Name="nauticalDuskProgressTextBlock"
+                    Grid.Row="9"
+                    Grid.Column="2"
+                    Text="nauticalDuskProgressTextBlock"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+                <TextBlock
+                    x:Name="nauticalDuskAverageProgressTextBlock"
+                    Grid.Row="9"
+                    Grid.Column="3"
+                    Text="nauticalDuskAverageProgressTextBlock"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+
+                <!-- Night -->
+                <TextBlock
+                    Grid.Row="10"
+                    Grid.Column="0"
+                    Text="Night"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+                <TextBlock
+                    x:Name="nightTimeTextBlock"
+                    Grid.Row="10"
+                    Grid.Column="1"
+                    Text="nightTimeTextBlock"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+                <TextBlock
+                    x:Name="nightProgressTextBlock"
+                    Grid.Row="10"
+                    Grid.Column="2"
+                    Text="nightProgressTextBlock"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+                <TextBlock
+                    x:Name="nightAverageProgressTextBlock"
+                    Grid.Row="10"
+                    Grid.Column="3"
+                    Text="nightAverageProgressTextBlock"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+
+                <!-- Nadir -->
+                <Rectangle
+                    Grid.Row="11"
+                    Grid.Column="0"
+                    Style="{StaticResource Static.Rectangle.RowBackgroundLight}"/>
+                <TextBlock
+                    Grid.Row="11"
+                    Grid.Column="0"
+                    Text="Nadir"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+                <TextBlock
+                    x:Name="nadirTimeTextBlock"
+                    Grid.Row="11"
+                    Grid.Column="1"
+                    Text="nadirTimeTextBlock"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+                <TextBlock
+                    x:Name="nadirProgressTextBlock"
+                    Grid.Row="11"
+                    Grid.Column="2"
+                    Text="nadirProgressTextBlock"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+                <TextBlock
+                    x:Name="nadirAverageProgressTextBlock"
+                    Grid.Row="11"
+                    Grid.Column="3"
+                    Text="nadirAverageProgressTextBlock"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+
+                <!-- Night End -->
+                <TextBlock
+                    Grid.Row="12"
+                    Grid.Column="0"
+                    Text="Night End"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+                <TextBlock
+                    x:Name="nightEndTimeTextBlock"
+                    Grid.Row="12"
+                    Grid.Column="1"
+                    Text="nightEndTimeTextBlock"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+                <TextBlock
+                    x:Name="nightEndProgressTextBlock"
+                    Grid.Row="12"
+                    Grid.Column="2"
+                    Text="nightEndProgressTextBlock"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+                <TextBlock
+                    x:Name="nightEndAverageProgressTextBlock"
+                    Grid.Row="12"
+                    Grid.Column="3"
+                    Text="nightEndAverageProgressTextBlock"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+
+                <!-- Nautical Dawn -->
+                <Rectangle
+                    Grid.Row="13"
+                    Grid.Column="0"
+                    Style="{StaticResource Static.Rectangle.RowBackgroundLight}"/>
+                <TextBlock
+                    Grid.Row="13"
+                    Grid.Column="0"
+                    Text="Nautical Dawn"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+                <TextBlock
+                    x:Name="nauticalDawnTimeTextBlock"
+                    Grid.Row="13"
+                    Grid.Column="1"
+                    Text="nauticalDawnTimeTextBlock"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+                <TextBlock
+                    x:Name="nauticalDawnProgressTextBlock"
+                    Grid.Row="13"
+                    Grid.Column="2"
+                    Text="nauticalDawnProgressTextBlock"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+                <TextBlock
+                    x:Name="nauticalDawnAverageProgressTextBlock"
+                    Grid.Row="13"
+                    Grid.Column="3"
+                    Text="nauticalDawnAverageProgressTextBlock"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+
+                <!-- Dawn -->
+                <TextBlock
+                    Grid.Row="14"
+                    Grid.Column="0"
+                    Margin="0"
+                    Text="Dawn"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+                <TextBlock
+                    x:Name="dawnTimeTextBlock"
+                    Grid.Row="14"
+                    Grid.Column="1"
+                    Margin="0"
+                    Text="dawnTimeTextBlock"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+                <TextBlock
+                    x:Name="dawnProgressTextBlock"
+                    Grid.Row="14"
+                    Grid.Column="2"
+                    Margin="0"
+                    Text="dawnProgressTextBlock"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+                <TextBlock
+                    x:Name="dawnAverageProgressTextBlock"
+                    Grid.Row="14"
+                    Grid.Column="3"
+                    Margin="0"
+                    Text="dawnAverageProgressTextBlock"
+                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+            </Grid>
+            
+        </Grid>
+    </Grid>
+</Window>
