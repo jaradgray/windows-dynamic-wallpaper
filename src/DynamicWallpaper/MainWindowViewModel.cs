@@ -195,7 +195,9 @@ namespace DynamicWallpaperNamespace
         public void SunInfo_Click()
         {
             // Show SunInfoWindow
-            new SunInfoWindow().Show();
+            SunInfoWindow w = new SunInfoWindow();
+            w.Owner = Application.Current.MainWindow;
+            w.ShowDialog(); // ShowDialog() instead of Show() so SunInfoWindow is modal
         }
     }
 }
