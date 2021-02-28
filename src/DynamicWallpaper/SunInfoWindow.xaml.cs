@@ -77,7 +77,7 @@ namespace DynamicWallpaperNamespace
             DateTime nauticalDawn = phases.First(phase => phase.Name.Value.Equals("Nautical Dawn")).PhaseTime;
             DateTime dawn = phases.First(phase => phase.Name.Value.Equals("Dawn")).PhaseTime;
 
-            string timeFormat = "h:mm tt"; // e.g. "5:30 PM"
+            string timeFormat = "h:mm:ss tt"; // e.g. "5:30:00 PM"
             sunriseTimeTextBlock.Text = sunrise.ToString(timeFormat);
             sunriseEndTimeTextBlock.Text = sunriseEnd.ToString(timeFormat);
             goldenHourEndTimeTextBlock.Text = goldenHourEnd.ToString(timeFormat);
