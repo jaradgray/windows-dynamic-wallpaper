@@ -8,6 +8,7 @@
         Title="Sun Info"
         SizeToContent="WidthAndHeight"
         ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner"
         Background="#1d1d1d"
         Foreground="#99FFFFFF">
     <Window.Resources>
