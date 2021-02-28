@@ -73,6 +73,10 @@
     <Compile Include="Location.cs" />
     <Compile Include="ProgressImage.cs" />
     <Compile Include="SunCalcHelper.cs" />
+    <Compile Include="SunInfoWindow.xaml.cs">
+      <DependentUpon>SunInfoWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SunInfoWindowViewModel.cs" />
     <Compile Include="WallpaperScheduler.cs" />
     <Page Include="ButtonDictionary.xaml">
       <SubType>Designer</SubType>
@@ -95,6 +99,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="SunInfoWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainWindowViewModel.cs" />
