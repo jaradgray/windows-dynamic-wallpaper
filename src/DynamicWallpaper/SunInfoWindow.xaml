@@ -1,0 +1,16 @@
+﻿<Window x:Class="DynamicWallpaperNamespace.SunInfoWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DynamicWallpaperNamespace"
+        mc:Ignorable="d"
+        Title="Sun Info"
+        Width="800"
+        Height="450"
+        Background="#1d1d1d"
+        Foreground="#99FFFFFF">
+    <Grid>
+        
+    </Grid>
+</Window>
