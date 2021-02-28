@@ -157,6 +157,29 @@ namespace DynamicWallpaperNamespace
             _viewModel.Location_Click();
         }
 
+        // Sun Info Border mouse interaction
+
+        private void SunInfoBorder_MouseEnter(object sender, MouseEventArgs e)
+        {
+            ((Border)sender).Background = (Brush)new BrushConverter().ConvertFrom("#22FFFFFF");
+        }
+
+        private void SunInfoBorder_MouseLeave(object sender, MouseEventArgs e)
+        {
+            ((Border)sender).Background = (Brush)new BrushConverter().ConvertFrom("#00FFFFFF");
+        }
+
+        private void SunInfoBorder_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            ((Border)sender).Background = (Brush)new BrushConverter().ConvertFrom("#44FFFFFF");
+        }
+
+        private void SunInfoBorder_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            ((Border)sender).Background = (Brush)new BrushConverter().ConvertFrom("#22FFFFFF");
+            _viewModel.SunInfo_Click();
+        }
+
         private void InitToViewModel()
         {
             // We can just call the "handler" for every property that can change

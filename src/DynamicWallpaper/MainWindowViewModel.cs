@@ -191,5 +191,11 @@ namespace DynamicWallpaperNamespace
                 Location = new Location(w.Latitude, w.Longitude);
             }
         }
+
+        public void SunInfo_Click()
+        {
+            // Show SunInfoWindow
+            new SunInfoWindow().Show();
+        }
     }
 }
