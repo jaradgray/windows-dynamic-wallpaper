@@ -66,12 +66,40 @@
             
             <!-- Title stuff -->
             <Grid Grid.Row="0" Grid.Column="0"
-                  Margin="0 0 0 16">
+                  Margin="0 0 0 32">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Margin="0 0 0 8"
+                    FontSize="32"
+                    FontWeight="Light"
+                    Foreground="{StaticResource Static.Foreground.HighEmphasis}"
+                    Text="Sun Info" />
                 <TextBlock
                     x:Name="dateTextBlock"
-                    FontSize="32"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Margin="0 0 0 8"
+                    FontSize="18"
                     Foreground="{StaticResource Static.Foreground.HighEmphasis}"
                     Text="dateTextBlock"/>
+                <TextBlock
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    MaxWidth="600"
+                    FontSize="16"
+                    TextWrapping="Wrap"
+                    Text="This window shows the time and progress of the sun at each of its phases today, and each phase's average progress for the next year." />
             </Grid>
             
             <!-- Info -->
@@ -120,7 +148,7 @@
                 <TextBlock
                     Grid.Row="0"
                     Grid.Column="3"
-                    Text="Average Progress (1 year)"
+                    Text="Average Progress"
                     Style="{StaticResource Static.TextBlock.DataHeading}"/>
                 
                 <!-- Data -->
