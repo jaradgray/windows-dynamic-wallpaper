@@ -480,24 +480,28 @@
                 <TextBlock
                     Grid.Row="14"
                     Grid.Column="0"
+                    Margin="0"
                     Text="Dawn"
                     Style="{StaticResource Static.TextBlock.DataItem}"/>
                 <TextBlock
                     x:Name="dawnTimeTextBlock"
                     Grid.Row="14"
                     Grid.Column="1"
+                    Margin="0"
                     Text="dawnTimeTextBlock"
                     Style="{StaticResource Static.TextBlock.DataItem}"/>
                 <TextBlock
                     x:Name="dawnProgressTextBlock"
                     Grid.Row="14"
                     Grid.Column="2"
+                    Margin="0"
                     Text="dawnProgressTextBlock"
                     Style="{StaticResource Static.TextBlock.DataItem}"/>
                 <TextBlock
                     x:Name="dawnAverageProgressTextBlock"
                     Grid.Row="14"
                     Grid.Column="3"
+                    Margin="0"
                     Text="dawnAverageProgressTextBlock"
                     Style="{StaticResource Static.TextBlock.DataItem}"/>
             </Grid>
