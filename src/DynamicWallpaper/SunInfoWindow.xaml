@@ -10,23 +10,45 @@
         Background="#1d1d1d"
         Foreground="#99FFFFFF">
     <Window.Resources>
+        <SolidColorBrush x:Key="Static.Foreground.HighEmphasis" Color="#DEFFFFFF" />
+        <SolidColorBrush x:Key="Static.Foreground.MediumEmphasis" Color="#99FFFFFF" />
+        <SolidColorBrush x:Key="Static.Foreground.Disabled" Color="#4CFFFFFF" />
+        
         <Style x:Key="Static.TextBlock.DataItem"
                TargetType="TextBlock">
             <Setter Property="FontSize" Value="16" />
+            <Setter Property="Width" Value="150" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+            <Setter Property="Margin" Value="0 0 0 8" />
+            <Setter Property="Foreground" Value="{StaticResource Static.Foreground.MediumEmphasis}" />
+        </Style>
+
+        <Style x:Key="Static.TextBlock.DataHeading"
+               TargetType="TextBlock"
+               BasedOn="{StaticResource Static.TextBlock.DataItem}">
+            <Setter Property="Foreground" Value="{StaticResource Static.Foreground.HighEmphasis}" />
+        </Style>
+
+        <SolidColorBrush x:Key="Static.Background.RowVariation" Color="#272727" />
+        
+        <Style x:Key="Static.Rectangle.RowBackgroundLight"
+               TargetType="Rectangle">
+            <Setter Property="Grid.ColumnSpan" Value="4" />
+            <Setter Property="Fill" Value="{StaticResource Static.Background.RowVariation}" />
         </Style>
     </Window.Resources>
     
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="8" />
+            <RowDefinition Height="16" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="8" />
+            <RowDefinition Height="16" />
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="8" />
+            <ColumnDefinition Width="16" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="8" />
+            <ColumnDefinition Width="16" />
         </Grid.ColumnDefinitions>
         
         <!-- Main Content section -->
@@ -41,10 +63,12 @@
             </Grid.ColumnDefinitions>
             
             <!-- Title stuff -->
-            <Grid Grid.Row="0" Grid.Column="0">
+            <Grid Grid.Row="0" Grid.Column="0"
+                  Margin="0 0 0 16">
                 <TextBlock
                     x:Name="dateTextBlock"
                     FontSize="32"
+                    Foreground="{StaticResource Static.Foreground.HighEmphasis}"
                     Text="dateTextBlock"/>
             </Grid>
             
@@ -80,26 +104,30 @@
                     Grid.Row="0"
                     Grid.Column="0"
                     Text="Sun Phase"
-                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+                    Style="{StaticResource Static.TextBlock.DataHeading}"/>
                 <TextBlock
                     Grid.Row="0"
                     Grid.Column="1"
                     Text="Time"
-                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+                    Style="{StaticResource Static.TextBlock.DataHeading}"/>
                 <TextBlock
                     Grid.Row="0"
                     Grid.Column="2"
                     Text="Progress"
-                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+                    Style="{StaticResource Static.TextBlock.DataHeading}"/>
                 <TextBlock
                     Grid.Row="0"
                     Grid.Column="3"
                     Text="Average Progress (1 year)"
-                    Style="{StaticResource Static.TextBlock.DataItem}"/>
+                    Style="{StaticResource Static.TextBlock.DataHeading}"/>
                 
                 <!-- Data -->
                 
                 <!-- Sunrise -->
+                <Rectangle
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Style="{StaticResource Static.Rectangle.RowBackgroundLight}"/>
                 <TextBlock
                     Grid.Row="1"
                     Grid.Column="0"
@@ -150,6 +178,10 @@
                     Style="{StaticResource Static.TextBlock.DataItem}"/>
 
                 <!-- Golden Hour End -->
+                <Rectangle
+                    Grid.Row="3"
+                    Grid.Column="0"
+                    Style="{StaticResource Static.Rectangle.RowBackgroundLight}"/>
                 <TextBlock
                     Grid.Row="3"
                     Grid.Column="0"
@@ -200,6 +232,10 @@
                     Style="{StaticResource Static.TextBlock.DataItem}"/>
 
                 <!-- Golden Hour -->
+                <Rectangle
+                    Grid.Row="5"
+                    Grid.Column="0"
+                    Style="{StaticResource Static.Rectangle.RowBackgroundLight}"/>
                 <TextBlock
                     Grid.Row="5"
                     Grid.Column="0"
@@ -250,6 +286,10 @@
                     Style="{StaticResource Static.TextBlock.DataItem}"/>
 
                 <!-- Sunset -->
+                <Rectangle
+                    Grid.Row="7"
+                    Grid.Column="0"
+                    Style="{StaticResource Static.Rectangle.RowBackgroundLight}"/>
                 <TextBlock
                     Grid.Row="7"
                     Grid.Column="0"
@@ -300,6 +340,10 @@
                     Style="{StaticResource Static.TextBlock.DataItem}"/>
 
                 <!-- Nautical Dusk -->
+                <Rectangle
+                    Grid.Row="9"
+                    Grid.Column="0"
+                    Style="{StaticResource Static.Rectangle.RowBackgroundLight}"/>
                 <TextBlock
                     Grid.Row="9"
                     Grid.Column="0"
@@ -350,6 +394,10 @@
                     Style="{StaticResource Static.TextBlock.DataItem}"/>
 
                 <!-- Nadir -->
+                <Rectangle
+                    Grid.Row="11"
+                    Grid.Column="0"
+                    Style="{StaticResource Static.Rectangle.RowBackgroundLight}"/>
                 <TextBlock
                     Grid.Row="11"
                     Grid.Column="0"
@@ -400,6 +448,10 @@
                     Style="{StaticResource Static.TextBlock.DataItem}"/>
 
                 <!-- Nautical Dawn -->
+                <Rectangle
+                    Grid.Row="13"
+                    Grid.Column="0"
+                    Style="{StaticResource Static.Rectangle.RowBackgroundLight}"/>
                 <TextBlock
                     Grid.Row="13"
                     Grid.Column="0"
