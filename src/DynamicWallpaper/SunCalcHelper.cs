@@ -14,9 +14,6 @@ namespace DynamicWallpaperNamespace
     /// </summary>
     public class SunCalcHelper
     {
-        // TODO eventually pass lat and lng values to methods instead of hard-coding them here
-        //public const double LAT = 34.316830;
-        //public const double LNG = -86.495820;
         public const int PRECISION = 4; // number of decimal places to round to
 
         // SunPhase names
