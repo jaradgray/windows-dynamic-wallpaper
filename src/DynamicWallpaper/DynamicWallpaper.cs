@@ -50,6 +50,8 @@ namespace DynamicWallpaperNamespace
                 }
                 Images.Add(new ProgressImage(name, (double)progress));
             }
+            // sort Images by increasing progress property
+            Images.Sort((x, y) => x.Progress.CompareTo(y.Progress));
         }
     }
 }
